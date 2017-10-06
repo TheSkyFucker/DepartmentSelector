@@ -8,6 +8,19 @@ namespace DepartmentTester
 {		
 	TEST_CLASS(DepartmentTester)
 	{
+
+    bool ExistStudent(const Student * student, const std::vector<Student *> &students) const
+    {
+        for (auto aStudent : students)
+        {
+            if (student == aStudent)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
 	public:
 
         TEST_METHOD(ConstructTest)
@@ -66,6 +79,30 @@ namespace DepartmentTester
             dpt.DeleteConflictStudents();
             Assert::AreEqual(1, (int)dpt.m_tempStudents.size());
             Assert::AreEqual((int)(&yaoyao), (int)dpt.m_tempStudents.back());;
+        }
+
+        TEST_METHOD(SelectStudentsTest)
+        {
+            //config
+            const TimeSegment PAOPAO_FREE_TIME("Sat.14: 00~16: 00");
+            const TimeSegment YAOYAO_FREE_TIME("Sat.16: 00~18: 00");
+            const TimeSegment SCHEDULE("Sat.16: 00~17: 00");
+            Student paopao("031502442");
+            Student yaoyao("031502522");
+            paopao.m_freeTimes.push_back(PAOPAO_FREE_TIME);
+            yaoyao.m_freeTimes.push_back(YAOYAO_FREE_TIME);
+            Department dpt("D23333");
+            dpt.m_schedules.push_back(SCHEDULE);
+            dpt.m_tempStudents.push_back(&paopao);
+            dpt.m_tempStudents.push_back(&yaoyao);
+
+            //test only freetime conflict
+#ifdef TEST_PRIVATE_FUNCTION
+            dpt.SelectStudents();
+            std::vector<Student *> students = dpt.__GetStudents();
+            ExistStudent(&paopao, students);
+#endif
+
         }
 
 

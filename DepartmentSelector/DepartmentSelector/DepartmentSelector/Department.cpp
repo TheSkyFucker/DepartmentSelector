@@ -39,6 +39,26 @@ void Department::DeleteConflictStudents()
     return;
 }
 
+void Department::SelectStudents()
+{
+    //去掉时间冲突学生
+    DeleteConflictStudents();
+
+    //Logic Path 1: 人数不超上限，全部中选
+    int tot = (int)(m_students.size() + m_tempStudents.size());
+    if (tot <= m_memberLimit)
+    {
+        while (m_tempStudents.empty() == false)
+        {
+            m_students.push_back(m_tempStudents.back());
+            m_tempStudents.pop_back();
+        }
+        return;
+    }
+
+    //TODO Logic Path 2: 执行淘汰算法
+}
+
 Department::~Department()
 {
 }

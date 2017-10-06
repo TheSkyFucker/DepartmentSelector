@@ -16,9 +16,9 @@ class Department
 {
 
     std::string m_id;                       //部门编号
-//    int m_memberLimit;                      //学生上限
+    int m_memberLimit;                      //学生上限
 //    std::vector<std::string> m_tags;        //兴趣标签
-//    std::vector<Student *> m_students;      //部门正式成员
+    std::vector<Student *> m_students;      //部门正式成员
 
 public:
 
@@ -54,6 +54,25 @@ public:
     // Qualifier:
     //************************************
     void DeleteConflictStudents();
+
+
+    //************************************
+    // Method:    SelectStudents
+    // FullName:  Department::SelectStudents
+    // Access:    public 
+    // Returns:   void
+    // Qualifier:
+    //************************************
+    void SelectStudents();
+
+
+#ifdef TEST_PRIVATE_FUNCTION
+    std::vector<Student *> __GetStudents()
+    {
+        return m_students;
+    }
+#endif
+
 
     ~Department();
 
