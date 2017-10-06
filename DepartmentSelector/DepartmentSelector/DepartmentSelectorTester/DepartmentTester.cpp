@@ -34,27 +34,19 @@ namespace DepartmentTester
             Assert::AreEqual(2, (int)dpt.m_tempStudents.size());
 		}
 
-        /*
-
-        TEST_METHOD(TestSchedulesConflict)
-		{
-            ///config
-            Department dpt;
-            std::vector<std::string> freeTimes;
-            //TODO: set freeTimes
+        TEST_METHOD(AddScheduleTest)
+        {
+            //config
+            const TimeSegment SCHEDULE_1("Sat.14: 00~16: 00");
+            const TimeSegment SCHEDULE_2("Sat.14: 00~16: 00");
 
             //test
-            Assert::IsFalse(dpt.IsSchedulesConflict(freeTimes));
+            Department dpt("D0001");
+            dpt.m_schedules.push_back(SCHEDULE_1);
+            dpt.m_schedules.push_back(SCHEDULE_2);
+            Assert::AreEqual(2, (int)dpt.m_schedules.size());
+        }
 
-            //TODO: more test
-		}
-
-        TEST_METHOD(TestDeleteConflictStudents)
-		{
-            ///config
-            //Department dpt;
-            
-		}*/
 
 	};
 }

@@ -10,7 +10,7 @@ namespace StudentTester
     {
     public:
 
-         TEST_METHOD(ConstructTest)
+        TEST_METHOD(ConstructTest)
         {
              //config
              const std::string ID_YAOYAO = "031502522";
@@ -19,6 +19,19 @@ namespace StudentTester
              Student paopao(ID_PAOPAO);
              Assert::AreEqual(ID_YAOYAO, yaoyao.GetId());
              Assert::AreEqual(ID_PAOPAO, paopao.GetId());
+        }
+
+        TEST_METHOD(AddFreeTimeTest)
+        {
+            //config
+            const TimeSegment FREE_TIME_1("Sat.14: 00~16: 00");
+            const TimeSegment FREE_TIME_2("Sat.14: 00~16: 00");
+
+            //test
+            Student yaoyao("031502522");
+            yaoyao.m_freeTimes.push_back(FREE_TIME_1);
+            yaoyao.m_freeTimes.push_back(FREE_TIME_2);
+            Assert::AreEqual(2, (int)yaoyao.m_freeTimes.size());
         }
     };
 }

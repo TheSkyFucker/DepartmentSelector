@@ -10,19 +10,20 @@
 //===============================================================
 #pragma once
 #include "Student.h"
+#include "TimeSegment.h"
 
 class Department
 {
 
     std::string m_id;                       //部门编号
 //    int m_memberLimit;                      //学生上限
-//    std::vector<std::string> m_schedules;   //活动时间
 //    std::vector<std::string> m_tags;        //兴趣标签
 //    std::vector<Student *> m_students;      //部门正式成员
 
 public:
 
     std::vector<Student *> m_tempStudents;  //部门候选成员
+    std::vector<TimeSegment> m_schedules;   //活动时间
 
     //************************************
     // Method:    Department
