@@ -22,7 +22,7 @@ class Department
 
 public:
 
-//    std::vector<Student *> m_tempStudents;  //部门候选成员
+    std::vector<Student *> m_tempStudents;  //部门候选成员
 
     //************************************
     // Method:    Department

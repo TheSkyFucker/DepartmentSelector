@@ -21,17 +21,20 @@ namespace DepartmentTester
             Assert::AreEqual(ID_DEPARTMENT_2, dpt2.GetId());
         }
 
-		/*TEST_METHOD(TestAddTempStudents)
+		TEST_METHOD(AddTempStudentsTest)
 		{
             ///config
-		    Department dpt;
+		    Department dpt("D0001");
             dpt.m_tempStudents.clear();
-            Student xiaoming, xiaohong;
-            dpt.m_tempStudents.push_back(&xiaoming);
-            dpt.m_tempStudents.push_back(&xiaohong);
-            ///test
+            Student paopao("031502442");
+            Student yaoyao("031502522");
+            //test
+            dpt.m_tempStudents.push_back(&paopao);
+            dpt.m_tempStudents.push_back(&yaoyao);
             Assert::AreEqual(2, (int)dpt.m_tempStudents.size());
 		}
+
+        /*
 
         TEST_METHOD(TestSchedulesConflict)
 		{

@@ -164,6 +164,7 @@
     </ClCompile>
     <ClCompile Include="DepartmentTester.cpp" />
     <ClCompile Include="StudentTester.cpp" />
+    <ClCompile Include="TimeSegmentTester.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DepartmentSelector\DepartmentSelector.vcxproj">
