@@ -46,6 +46,14 @@ public:
     std::string GetId();
 
 
+    //************************************
+    // Method:    DeleteConflictStudents
+    // FullName:  Department::DeleteConflictStudents
+    // Access:    public 
+    // Returns:   void
+    // Qualifier:
+    //************************************
+    void DeleteConflictStudents();
 
     ~Department();
 
