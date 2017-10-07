@@ -2,17 +2,18 @@
 #include "Department.h"
 
 
-Department::Department(std::string id)
+Department::Department(std::string id) throw()
 {
     m_id = id;
+    m_memberLimit = -1;
 }
 
-std::string Department::GetId()
+std::string Department::GetId() const throw()
 {
     return m_id;
 }
 
-void Department::DeleteConflictStudents()
+void Department::DeleteConflictStudents() throw()
 {
     for (int _student = m_tempStudents.size() - 1; _student >= 0; _student --)
     {
@@ -39,8 +40,14 @@ void Department::DeleteConflictStudents()
     return;
 }
 
-void Department::SelectStudents()
+void Department::SelectStudents() throw(std::exception)
 {
+    //check m_memberLimit 
+    if (!~m_memberLimit)
+    {
+        throw std::exception("Function(SelectStudent):未设置部门正式成员上限");
+    }
+
     //去掉时间冲突学生
     DeleteConflictStudents();
 
@@ -57,6 +64,24 @@ void Department::SelectStudents()
     }
 
     //TODO Logic Path 2: 执行淘汰算法
+}
+
+std::vector<Student*> Department::GetStudents() const throw()
+{
+    return m_students;
+}
+
+void Department::SetMemberLimit(int aLimit) throw(std::exception)
+{
+    if (aLimit < 0)
+    {
+        throw std::exception("Funciton(SetMemberLimit):部门人数上限不能是负数");
+    }
+    if (aLimit < (int)m_students.size())
+    {
+        throw std::exception("Funciton(SetMemberLimit):部门人数上限不能少于当前正式成员数量");
+    }
+    m_memberLimit = aLimit;
 }
 
 Department::~Department()

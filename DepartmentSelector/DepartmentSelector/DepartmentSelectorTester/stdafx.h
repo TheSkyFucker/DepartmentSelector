@@ -4,7 +4,6 @@
 //
 
 #pragma once
-#define TEST_PRIVATE_FUNCTION
 
 #include "targetver.h"
 

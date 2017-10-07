@@ -9,19 +9,20 @@
 //          2017/10/4
 //===============================================================
 #pragma once
+#pragma warning (disable:4290)
 #include <vector>
 #include "TimeSegment.h"
 
 class Student
 {
 
-    std::string m_id;                             //学号
-    //std::vector<std::string> m_tags;            //兴趣标签
-    //std::vector<std::string> m_applications;    //部门意愿
+    std::string m_id;                               //学号
+    //std::vector<std::string> m_applications;      //部门意愿
 
 public:
 
-    std::vector<TimeSegment> m_freeTimes;       //空闲时间
+    std::vector<std::string> m_tags;                //兴趣标签
+    std::vector<TimeSegment> m_freeTimes;           //空闲时间
                                                 
     //************************************
     // Method:    Student

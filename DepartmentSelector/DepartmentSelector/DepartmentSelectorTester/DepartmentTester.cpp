@@ -97,14 +97,49 @@ namespace DepartmentTester
             dpt.m_tempStudents.push_back(&yaoyao);
 
             //test only freetime conflict
-#ifdef TEST_PRIVATE_FUNCTION
-            dpt.SelectStudents();
-            std::vector<Student *> students = dpt.__GetStudents();
+            dpt.SetMemberLimit(10);
+            try
+            {
+                dpt.SelectStudents();
+            }
+            catch (std::exception e)
+            {
+                Assert::IsTrue(false);
+            }
+            std::vector<Student *> students = dpt.GetStudents();
             ExistStudent(&paopao, students);
-#endif
 
         }
 
+        TEST_METHOD(SetMemberLimitTest)
+        {
+            //config
+            Department dpt("D0001");
+            
+            //test < 0
+            bool cat = false;
+            try
+            {
+                dpt.SetMemberLimit(-1);
+            }
+            catch (std::exception e)
+            {
+                cat = true;
+            }
+            Assert::IsTrue(cat);
+
+            //test >= 0
+            cat = false;
+            try
+            {
+                dpt.SetMemberLimit(100);
+            }
+            catch (std::exception e)
+            {
+                cat = true;
+            }
+            Assert::IsFalse(cat);
+        }
 
 	};
 }

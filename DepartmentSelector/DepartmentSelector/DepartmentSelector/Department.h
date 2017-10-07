@@ -9,6 +9,7 @@
 //          2017/10/4
 //===============================================================
 #pragma once
+#pragma warning (disable:4290)
 #include "Student.h"
 #include "TimeSegment.h"
 
@@ -16,24 +17,25 @@ class Department
 {
 
     std::string m_id;                       //部门编号
-    int m_memberLimit;                      //学生上限
-//    std::vector<std::string> m_tags;        //兴趣标签
     std::vector<Student *> m_students;      //部门正式成员
+    int m_memberLimit;                      //学生上限
 
 public:
 
     std::vector<Student *> m_tempStudents;  //部门候选成员
-    std::vector<TimeSegment> m_schedules;   //活动时间
+    std::vector<TimeSegment> m_schedules;   //活动时间                                            
+    std::vector<std::string> m_tags;        //兴趣标签
+
 
     //************************************
     // Method:    Department
     // FullName:  Department::Department
     // Access:    public 
     // Returns:   
-    // Qualifier:
+    // Qualifier: throw()
     // Parameter: std::string id
     //************************************
-    Department(std::string id);
+    Department(std::string id) throw();
 
 
     //************************************
@@ -41,9 +43,10 @@ public:
     // FullName:  Department::GetId
     // Access:    public 
     // Returns:   std::string
-    // Qualifier:
+    // Qualifier: const throw()
     //************************************
-    std::string GetId();
+    std::string GetId() const throw();
+
 
 
     //************************************
@@ -51,9 +54,9 @@ public:
     // FullName:  Department::DeleteConflictStudents
     // Access:    public 
     // Returns:   void
-    // Qualifier:
+    // Qualifier: throw()
     //************************************
-    void DeleteConflictStudents();
+    void DeleteConflictStudents() throw();
 
 
     //************************************
@@ -61,17 +64,31 @@ public:
     // FullName:  Department::SelectStudents
     // Access:    public 
     // Returns:   void
-    // Qualifier:
+    // Qualifier: throw(std::exception)
     //************************************
-    void SelectStudents();
+    void SelectStudents() throw(std::exception);
 
 
-#ifdef TEST_PRIVATE_FUNCTION
-    std::vector<Student *> __GetStudents()
-    {
-        return m_students;
-    }
-#endif
+
+    //************************************
+    // Method:    GetStudents
+    // FullName:  Department::GetStudents
+    // Access:    public 
+    // Returns:   std::vector<Student *>
+    // Qualifier: const throw()
+    //************************************
+    std::vector<Student *> GetStudents() const throw();
+
+
+    //************************************
+    // Method:    SetMemberLimit
+    // FullName:  Department::SetMemberLimit
+    // Access:    public 
+    // Returns:   void
+    // Qualifier: throw(std::exception)
+    // Parameter: int aLimit
+    //************************************
+    void SetMemberLimit(int aLimit) throw(std::exception);
 
 
     ~Department();
