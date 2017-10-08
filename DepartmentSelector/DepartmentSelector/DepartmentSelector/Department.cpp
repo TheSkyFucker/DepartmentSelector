@@ -111,7 +111,7 @@ double Department::GetStudentValue(Student & aStudent) const throw()
     }
 
     //count
-    return numberTag / (1. + (double)aStudent.m_departments.size());
+    return numberTag / (1. + (double)aStudent.Departments().size());
 }
 
 void Department::SortTempStudents() throw()

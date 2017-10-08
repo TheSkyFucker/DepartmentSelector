@@ -147,7 +147,7 @@ namespace DepartmentTester
         {
             //config
             Student paopao("031502442");
-            paopao.addTag("aaa");
+            paopao.AddTag("aaa");
             Department dpt("D1212");
             dpt.AddTag("aaa");
             dpt.AddTag("aaaa");
@@ -165,21 +165,21 @@ namespace DepartmentTester
 
             //config students
             Student paopao("031502442");
-            paopao.addTag("aaa");
-            paopao.addTag("bbb");
-            paopao.m_departments.push_back("D23333");
-            paopao.m_departments.push_back("D24444");
-            paopao.m_departments.push_back("D25555");
+            paopao.AddTag("aaa");
+            paopao.AddTag("bbb");
+            paopao.AddDepartment("D23333");
+            paopao.AddDepartment("D24444");
+            paopao.AddDepartment("D25555");
 
             Student yaoyao("03152522");
-            yaoyao.addTag("aaa");
-            yaoyao.addTag("ccc");
+            yaoyao.AddTag("aaa");
+            yaoyao.AddTag("ccc");
 
             Student hbb("?????????");
-            hbb.addTag("aaa");
-            hbb.addTag("bbb");
-            hbb.m_departments.push_back("D23333");
-            paopao.m_departments.push_back("D25555");
+            hbb.AddTag("aaa");
+            hbb.AddTag("bbb");
+            hbb.AddDepartment("D23333");
+            paopao.AddDepartment("D25555");
 
             //config department
             Department dpt("D1212");
@@ -202,20 +202,20 @@ namespace DepartmentTester
         {
             //config students
             Student paopao("031502442");
-            paopao.addTag("aaa");
-            paopao.addTag("bbb");
-            paopao.m_departments.push_back("D23333");
-            paopao.m_departments.push_back("D24444");
-            paopao.m_departments.push_back("D25555");
+            paopao.AddTag("aaa");
+            paopao.AddTag("bbb");
+            paopao.AddDepartment("D23333");
+            paopao.AddDepartment("D24444");
+            paopao.AddDepartment("D25555");
 
             Student yaoyao("031502522");
-            yaoyao.addTag("aaa");
-            yaoyao.addTag("ccc");
+            yaoyao.AddTag("aaa");
+            yaoyao.AddTag("ccc");
 
             Student hbb("?????????");
-            hbb.addTag("aaa");
-            hbb.addTag("bbb");
-            hbb.m_departments.push_back("D23333");
+            hbb.AddTag("aaa");
+            hbb.AddTag("bbb");
+            hbb.AddDepartment("D23333");
 
             //config department
             Department dpt("D1212");

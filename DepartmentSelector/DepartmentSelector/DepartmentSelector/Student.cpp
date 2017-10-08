@@ -45,7 +45,7 @@ std::vector<std::string> Student::Tags() throw()
     return m_tags;
 }
 
-void Student::addTag(std::string aTag) throw()
+void Student::AddTag(std::string aTag) throw()
 {
     for (auto m_tag : m_tags)
     {
@@ -55,6 +55,23 @@ void Student::addTag(std::string aTag) throw()
         }
     }
     m_tags.push_back(aTag);
+}
+
+std::vector<std::string> Student::Departments() const throw()
+{
+    return m_departments;
+}
+
+void Student::AddDepartment(std::string aDepartment) throw()
+{
+    for (auto m_department : m_departments)
+    {
+        if (m_department == aDepartment)
+        {
+            return;
+        }
+    }
+    m_departments.push_back(aDepartment);
 }
 
 Student::~Student()
