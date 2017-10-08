@@ -23,7 +23,7 @@ namespace DepartmentTester
 
 	public:
 
-        TEST_METHOD(ConstructTest)
+        TEST_METHOD(Construct)
         {
             //config
             const std::string ID_DEPARTMENT_1 = "031502522";
@@ -34,7 +34,7 @@ namespace DepartmentTester
             Assert::AreEqual(ID_DEPARTMENT_2, dpt2.GetId());
         }
 
-		TEST_METHOD(AddTempStudentsTest)
+		TEST_METHOD(AddTempStudents)
 		{
             ///config
 		    Department dpt("D0001");
@@ -47,7 +47,7 @@ namespace DepartmentTester
             Assert::AreEqual(2, (int)dpt.m_tempStudents.size());
 		}
 
-        TEST_METHOD(AddScheduleTest)
+        TEST_METHOD(AddSchedule)
         {
             //config
             const TimeSegment SCHEDULE_1("Sat.14: 00~16: 00");
@@ -60,7 +60,7 @@ namespace DepartmentTester
             Assert::AreEqual(2, (int)dpt.m_schedules.size());
         }
 
-        TEST_METHOD(DeleteConflictStudentsTest)
+        TEST_METHOD(DeleteConflictStudents)
         {
             //config
             const TimeSegment PAOPAO_FREE_TIME("Sat.14: 00~16: 00");
@@ -81,7 +81,7 @@ namespace DepartmentTester
             Assert::AreEqual((int)(&yaoyao), (int)dpt.m_tempStudents.back());;
         }
 
-        TEST_METHOD(SelectStudentsTest)
+        TEST_METHOD(SelectStudents)
         {
             //config
             const TimeSegment PAOPAO_FREE_TIME("Sat.14: 00~16: 00");
@@ -111,7 +111,7 @@ namespace DepartmentTester
 
         }
 
-        TEST_METHOD(SetMemberLimitTest)
+        TEST_METHOD(SetMemberLimit)
         {
             //config
             Department dpt("D0001");
@@ -140,6 +140,60 @@ namespace DepartmentTester
             }
             Assert::IsFalse(cat);
         }
+
+        TEST_METHOD(GetStudentValue)
+        {
+            //config
+            Student paopao("031502442");
+            paopao.m_tags.push_back("aaa");
+            Department dpt("D1212");
+            dpt.m_tags.push_back("aaa");
+            dpt.m_tags.push_back("aaaa");
+            const double PAOPAO_VALUE = 1. * 1 / (1 + 0);
+            const double EPS = 1e-6;
+            
+            //test
+            double val = dpt.GetStudentValue(paopao);
+            Assert::IsTrue(fabs(val - PAOPAO_VALUE) < EPS);
+
+        }
+
+        TEST_METHOD(SortTempStudents)
+        {
+
+            //config students
+            Student paopao("031502442");
+            paopao.m_tags.push_back("aaa");
+            paopao.m_tags.push_back("bbb");
+            paopao.m_departments.push_back("D23333");
+            paopao.m_departments.push_back("D24444");
+            paopao.m_departments.push_back("D25555");
+
+            Student yaoyao("031502442");
+            yaoyao.m_tags.push_back("aaa");
+            yaoyao.m_tags.push_back("ccc");
+
+            Student hbb("?????????");
+            hbb.m_tags.push_back("aaa");
+            hbb.m_tags.push_back("bbb");
+            hbb.m_departments.push_back("D23333");
+
+            //config department
+            Department dpt("D1212");
+            dpt.m_tags.push_back("aaa");
+            dpt.m_tags.push_back("bbb");
+
+            //test
+            dpt.m_tempStudents.push_back(&yaoyao);
+            dpt.m_tempStudents.push_back(&hbb);
+            dpt.m_tempStudents.push_back(&paopao);
+            dpt.SortTempStudents();
+            Assert::AreEqual(yaoyao.GetId(), dpt.m_tempStudents[0]->GetId());
+            Assert::AreEqual(hbb.GetId(), dpt.m_tempStudents[1]->GetId());
+            Assert::AreEqual(paopao.GetId(), dpt.m_tempStudents[2]->GetId());
+
+        }
+
 
 	};
 }

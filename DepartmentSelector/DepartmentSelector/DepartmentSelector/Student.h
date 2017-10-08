@@ -23,16 +23,18 @@ public:
 
     std::vector<std::string> m_tags;                //兴趣标签
     std::vector<TimeSegment> m_freeTimes;           //空闲时间
-                                                
+    std::vector<std::string> m_departments;         //中选部门
+
+
     //************************************
     // Method:    Student
     // FullName:  Student::Student
     // Access:    public 
     // Returns:   
-    // Qualifier:
+    // Qualifier: throw()
     // Parameter: std::string id
     //************************************
-    Student(std::string id);
+    Student(std::string id) throw();
 
 
     //************************************
@@ -42,7 +44,7 @@ public:
     // Returns:   std::string
     // Qualifier:
     //************************************
-    std::string GetId();
+    std::string GetId() const throw();
 
 
     ~Student();

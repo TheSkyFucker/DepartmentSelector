@@ -91,6 +91,19 @@ public:
     void SetMemberLimit(int aLimit) throw(std::exception);
 
 
+    //************************************
+    // Method:    GetStudentValue
+    // FullName:  Department::GetStudentValue
+    // Access:    public 
+    // Returns:   double
+    // Qualifier: const throw()
+    // Parameter: const Student & aStudent
+    //************************************
+    double GetStudentValue(const Student &aStudent) const throw();
+
+
+    void SortTempStudents() throw();
+
     ~Department();
 
 

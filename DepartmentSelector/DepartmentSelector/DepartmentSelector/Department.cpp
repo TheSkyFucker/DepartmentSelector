@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Department.h"
+#include <algorithm>
 
 
 Department::Department(std::string id) throw()
@@ -82,6 +83,47 @@ void Department::SetMemberLimit(int aLimit) throw(std::exception)
         throw std::exception("Funciton(SetMemberLimit):部门人数上限不能少于当前正式成员数量");
     }
     m_memberLimit = aLimit;
+}
+
+double Department::GetStudentValue(const Student & aStudent) const throw()
+{
+    //get same tag
+    int numberTag = 0;
+    for (auto m_tag : m_tags)
+    {
+        bool has = false;
+        for (auto studentTag : aStudent.m_tags)
+        {
+            if (studentTag == m_tag)
+            {
+                has = true;
+                break;
+            }
+        }
+        numberTag += has;
+    }
+
+    //count
+    return numberTag / (1. + (double)aStudent.m_departments.size());
+}
+
+void Department::SortTempStudents() throw()
+{
+    //get key value
+    std::vector<std::pair<double, Student *> > result;
+    for (auto student : m_tempStudents)
+    {
+        double value = GetStudentValue(*student);
+        result.push_back(std::make_pair(value, student));
+    }
+
+    //sort
+    std::sort(result.begin(), result.end());
+    m_tempStudents.clear();
+    for (auto elem : result)
+    {
+        m_tempStudents.push_back(elem.second);
+    }
 }
 
 Department::~Department()
