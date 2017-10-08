@@ -9,7 +9,7 @@ Department::Department(std::string id) throw()
     m_memberLimit = -1;
 }
 
-std::string Department::GetId() const throw()
+std::string Department::Id() const throw()
 {
     return m_id;
 }
@@ -64,10 +64,18 @@ void Department::SelectStudents() throw(std::exception)
         return;
     }
 
-    //TODO Logic Path 2: 执行淘汰算法
+    //Logic Path 2: 执行淘汰算法
+    SortTempStudents();
+    std::reverse(m_tempStudents.begin(), m_tempStudents.end());
+    while ((int)m_students.size() < m_memberLimit)
+    {
+        m_students.push_back(m_tempStudents.back());
+        m_tempStudents.pop_back();
+    }
+
 }
 
-std::vector<Student*> Department::GetStudents() const throw()
+std::vector<Student*> Department::Students() const throw()
 {
     return m_students;
 }

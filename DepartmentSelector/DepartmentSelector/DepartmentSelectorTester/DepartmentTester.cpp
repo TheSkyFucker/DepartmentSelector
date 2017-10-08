@@ -30,8 +30,8 @@ namespace DepartmentTester
             const std::string ID_DEPARTMENT_2 = "031502442";
             Department dpt1(ID_DEPARTMENT_1);
             Department dpt2(ID_DEPARTMENT_2);
-            Assert::AreEqual(ID_DEPARTMENT_1, dpt1.GetId());
-            Assert::AreEqual(ID_DEPARTMENT_2, dpt2.GetId());
+            Assert::AreEqual(ID_DEPARTMENT_1, dpt1.Id());
+            Assert::AreEqual(ID_DEPARTMENT_2, dpt2.Id());
         }
 
 		TEST_METHOD(AddTempStudents)
@@ -81,7 +81,7 @@ namespace DepartmentTester
             Assert::AreEqual((int)(&yaoyao), (int)dpt.m_tempStudents.back());;
         }
 
-        TEST_METHOD(SelectStudents)
+        TEST_METHOD(SelectStudents_Logic1)
         {
             //config
             const TimeSegment PAOPAO_FREE_TIME("Sat.14: 00~16: 00");
@@ -106,8 +106,9 @@ namespace DepartmentTester
             {
                 Assert::IsTrue(false);
             }
-            std::vector<Student *> students = dpt.GetStudents();
+            std::vector<Student *> students = dpt.Students();
             ExistStudent(&paopao, students);
+
 
         }
 
@@ -188,10 +189,52 @@ namespace DepartmentTester
             dpt.m_tempStudents.push_back(&hbb);
             dpt.m_tempStudents.push_back(&paopao);
             dpt.SortTempStudents();
-            Assert::AreEqual(yaoyao.GetId(), dpt.m_tempStudents[0]->GetId());
-            Assert::AreEqual(hbb.GetId(), dpt.m_tempStudents[1]->GetId());
-            Assert::AreEqual(paopao.GetId(), dpt.m_tempStudents[2]->GetId());
+            Assert::AreEqual(yaoyao.Id(), dpt.m_tempStudents[0]->Id());
+            Assert::AreEqual(hbb.Id(), dpt.m_tempStudents[1]->Id());
+            Assert::AreEqual(paopao.Id(), dpt.m_tempStudents[2]->Id());
 
+        }
+
+        TEST_METHOD(SelectStudents_Logic2)
+        {
+            //config students
+            Student paopao("031502442");
+            paopao.m_tags.push_back("aaa");
+            paopao.m_tags.push_back("bbb");
+            paopao.m_departments.push_back("D23333");
+            paopao.m_departments.push_back("D24444");
+            paopao.m_departments.push_back("D25555");
+
+            Student yaoyao("031502442");
+            yaoyao.m_tags.push_back("aaa");
+            yaoyao.m_tags.push_back("ccc");
+
+            Student hbb("?????????");
+            hbb.m_tags.push_back("aaa");
+            hbb.m_tags.push_back("bbb");
+            hbb.m_departments.push_back("D23333");
+
+            //config department
+            Department dpt("D1212");
+            dpt.m_tags.push_back("aaa");
+            dpt.m_tags.push_back("bbb");
+            dpt.m_tempStudents.push_back(&paopao);
+            dpt.m_tempStudents.push_back(&yaoyao);
+            dpt.m_tempStudents.push_back(&hbb);
+
+            //test
+            dpt.SetMemberLimit(2);
+            try
+            {
+                dpt.SelectStudents();
+            }
+            catch (std::exception e)
+            {
+                Assert::IsFalse(true);  //unexpected
+            }
+            Assert::AreEqual(2, (int)dpt.Students().size());
+            Assert::AreEqual(yaoyao.Id(), dpt.Students()[0]->Id());
+            Assert::AreEqual(hbb.Id(), dpt.Students()[1]->Id());
         }
 
 

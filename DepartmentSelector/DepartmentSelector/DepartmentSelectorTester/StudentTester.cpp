@@ -17,8 +17,8 @@ namespace StudentTester
              const std::string ID_PAOPAO = "031502442";
              Student yaoyao(ID_YAOYAO);
              Student paopao(ID_PAOPAO);
-             Assert::AreEqual(ID_YAOYAO, yaoyao.GetId());
-             Assert::AreEqual(ID_PAOPAO, paopao.GetId());
+             Assert::AreEqual(ID_YAOYAO, yaoyao.Id());
+             Assert::AreEqual(ID_PAOPAO, paopao.Id());
         }
 
         TEST_METHOD(AddFreeTimeTest)

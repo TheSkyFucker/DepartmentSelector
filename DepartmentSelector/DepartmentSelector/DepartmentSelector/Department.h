@@ -45,7 +45,7 @@ public:
     // Returns:   std::string
     // Qualifier: const throw()
     //************************************
-    std::string GetId() const throw();
+    std::string Id() const throw();
 
 
 
@@ -65,19 +65,19 @@ public:
     // Access:    public 
     // Returns:   void
     // Qualifier: throw(std::exception)
+    // Lable:     unselected tempStudent will not be delete from m_tempStudents
     //************************************
     void SelectStudents() throw(std::exception);
 
 
-
     //************************************
-    // Method:    GetStudents
-    // FullName:  Department::GetStudents
+    // Method:    Students
+    // FullName:  Department::Students
     // Access:    public 
     // Returns:   std::vector<Student *>
     // Qualifier: const throw()
     //************************************
-    std::vector<Student *> GetStudents() const throw();
+    std::vector<Student *> Students() const throw();
 
 
     //************************************
@@ -102,7 +102,15 @@ public:
     double GetStudentValue(const Student &aStudent) const throw();
 
 
+    //************************************
+    // Method:    SortTempStudents
+    // FullName:  Department::SortTempStudents
+    // Access:    public 
+    // Returns:   void
+    // Qualifier: throw()
+    //************************************
     void SortTempStudents() throw();
+
 
     ~Department();
 

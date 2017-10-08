@@ -38,13 +38,13 @@ public:
 
 
     //************************************
-    // Method:    GetId
-    // FullName:  Student::GetId
+    // Method:    Id
+    // FullName:  Student::Id
     // Access:    public 
     // Returns:   std::string
-    // Qualifier:
+    // Qualifier: const throw()
     //************************************
-    std::string GetId() const throw();
+    std::string Id() const throw();
 
 
     ~Student();
