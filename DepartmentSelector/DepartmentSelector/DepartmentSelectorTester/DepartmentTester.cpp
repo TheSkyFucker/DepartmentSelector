@@ -51,13 +51,15 @@ namespace DepartmentTester
         {
             //config
             const TimeSegment SCHEDULE_1("Sat.14: 00~16: 00");
-            const TimeSegment SCHEDULE_2("Sat.14: 00~16: 00");
-
+            const TimeSegment SCHEDULE_2("Sat.15: 00~18: 00");
+            
             //test
             Department dpt("D0001");
-            dpt.m_schedules.push_back(SCHEDULE_1);
-            dpt.m_schedules.push_back(SCHEDULE_2);
-            Assert::AreEqual(2, (int)dpt.m_schedules.size());
+            dpt.AddSchedule(SCHEDULE_1);
+            dpt.AddSchedule(SCHEDULE_2);
+            Assert::AreEqual(1, (int)dpt.Schedules().size());
+            Assert::AreEqual(14 * 60, dpt.Schedules().back().Begin());
+            Assert::AreEqual(18 * 60, dpt.Schedules().back().End());
         }
 
         TEST_METHOD(DeleteConflictStudents)
@@ -71,7 +73,7 @@ namespace DepartmentTester
             paopao.AddFreeTime(PAOPAO_FREE_TIME);
             yaoyao.AddFreeTime(YAOYAO_FREE_TIME);
             Department dpt("D23333");
-            dpt.m_schedules.push_back(SCHEDULE);
+            dpt.AddSchedule(SCHEDULE);
             dpt.m_tempStudents.push_back(&paopao);
             dpt.m_tempStudents.push_back(&yaoyao);
 
@@ -92,7 +94,7 @@ namespace DepartmentTester
             paopao.AddFreeTime(PAOPAO_FREE_TIME);
             yaoyao.AddFreeTime(YAOYAO_FREE_TIME);
             Department dpt("D23333");
-            dpt.m_schedules.push_back(SCHEDULE);
+            dpt.AddSchedule(SCHEDULE);
             dpt.m_tempStudents.push_back(&paopao);
             dpt.m_tempStudents.push_back(&yaoyao);
 

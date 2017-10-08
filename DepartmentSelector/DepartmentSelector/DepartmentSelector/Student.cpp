@@ -19,14 +19,25 @@ std::vector<TimeSegment> Student::FreeTimes() const throw()
 
 void Student::AddFreeTime(TimeSegment aFreeTime) throw()
 {
+    std::vector<TimeSegment> result;
+    bool login = false;
     for (auto m_freeTime : m_freeTimes)
     {
-        if (m_freeTime.Combine(aFreeTime))
+        if (aFreeTime.Combine(m_freeTime) == false)
         {
-            return;
+            if (aFreeTime < m_freeTime)
+            {
+                login = true;
+                result.push_back(aFreeTime);
+            }
+            result.push_back(m_freeTime);
         }
     }
-    m_freeTimes.push_back(aFreeTime);
+    if (login == false)
+    {
+        result.push_back(aFreeTime);
+    }
+    m_freeTimes = result;
 }
 
 Student::~Student()

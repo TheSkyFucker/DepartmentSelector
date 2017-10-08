@@ -72,6 +72,17 @@ public:
     //************************************
     bool Combine(TimeSegment aSegment) throw();
 
+
+    //************************************
+    // Method:    operator<
+    // FullName:  TimeSegment::operator<
+    // Access:    public 
+    // Returns:   bool
+    // Qualifier: const throw()
+    // Parameter: const TimeSegment & aSegment
+    //************************************
+    bool operator <(const TimeSegment &aSegment) const throw();
+
     ~TimeSegment();
 
 

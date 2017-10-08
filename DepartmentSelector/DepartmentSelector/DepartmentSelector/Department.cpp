@@ -141,14 +141,25 @@ std::vector<TimeSegment> Department::Schedules() const throw()
 
 void Department::AddSchedule(TimeSegment aSchedule) throw()
 {
+    std::vector<TimeSegment> result;
+    bool login = false;
     for (auto m_schedule : m_schedules)
     {
-        if (m_schedule.Combine(aSchedule))
+        if (aSchedule.Combine(m_schedule) == false)
         {
-            return;
+            if (aSchedule < m_schedule)
+            {
+                login = true;
+                result.push_back(aSchedule);
+            }
+            result.push_back(m_schedule);
         }
     }
-    m_schedules.push_back(aSchedule);
+    if (login == false)
+    {
+        result.push_back(aSchedule);
+    }
+    m_schedules = result;
 }
 
 Department::~Department()

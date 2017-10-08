@@ -62,11 +62,24 @@ bool TimeSegment::Combine(TimeSegment aSegment) throw()
     if (result)
     {
         m_begin = std::min(m_begin, aSegment.Begin());
-        m_end = std::max(m_begin, aSegment.End());
+        m_end = std::max(m_end, aSegment.End());
     }
     
     //return 
     return result;
+}
+
+bool TimeSegment::operator<(const TimeSegment & aSegment) const throw()
+{
+    if (m_day != aSegment.Day())
+    {
+        return m_day < aSegment.Day();
+    }
+    if (m_begin != aSegment.Begin())
+    {
+        return m_begin < aSegment.Begin();
+    }
+    return m_begin < aSegment.End();
 }
 
 TimeSegment::~TimeSegment()
