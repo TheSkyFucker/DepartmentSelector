@@ -38,13 +38,12 @@ namespace DepartmentTester
 		{
             ///config
 		    Department dpt("D0001");
-            dpt.m_tempStudents.clear();
             Student paopao("031502442");
             Student yaoyao("031502522");
             //test
-            dpt.m_tempStudents.push_back(&paopao);
-            dpt.m_tempStudents.push_back(&yaoyao);
-            Assert::AreEqual(2, (int)dpt.m_tempStudents.size());
+            dpt.AddTempStudent(&paopao);
+            dpt.AddTempStudent(&yaoyao);
+            Assert::AreEqual(2, (int)dpt.TempStudents().size());
 		}
 
         TEST_METHOD(AddSchedule)
@@ -74,13 +73,13 @@ namespace DepartmentTester
             yaoyao.AddFreeTime(YAOYAO_FREE_TIME);
             Department dpt("D23333");
             dpt.AddSchedule(SCHEDULE);
-            dpt.m_tempStudents.push_back(&paopao);
-            dpt.m_tempStudents.push_back(&yaoyao);
+            dpt.AddTempStudent(&paopao);
+            dpt.AddTempStudent(&yaoyao);
 
             //test
             dpt.DeleteConflictStudents();
-            Assert::AreEqual(1, (int)dpt.m_tempStudents.size());
-            Assert::AreEqual((int)(&yaoyao), (int)dpt.m_tempStudents.back());;
+            Assert::AreEqual(1, (int)dpt.TempStudents().size());
+            Assert::AreEqual((int)(&yaoyao), (int)dpt.TempStudents().back());;
         }
 
         TEST_METHOD(SelectStudents_Logic1)
@@ -95,8 +94,8 @@ namespace DepartmentTester
             yaoyao.AddFreeTime(YAOYAO_FREE_TIME);
             Department dpt("D23333");
             dpt.AddSchedule(SCHEDULE);
-            dpt.m_tempStudents.push_back(&paopao);
-            dpt.m_tempStudents.push_back(&yaoyao);
+            dpt.AddTempStudent(&paopao);
+            dpt.AddTempStudent(&yaoyao);
 
             //test only freetime conflict
             dpt.SetMemberLimit(10);
@@ -172,7 +171,7 @@ namespace DepartmentTester
             paopao.m_departments.push_back("D24444");
             paopao.m_departments.push_back("D25555");
 
-            Student yaoyao("031502442");
+            Student yaoyao("03152522");
             yaoyao.addTag("aaa");
             yaoyao.addTag("ccc");
 
@@ -180,6 +179,7 @@ namespace DepartmentTester
             hbb.addTag("aaa");
             hbb.addTag("bbb");
             hbb.m_departments.push_back("D23333");
+            paopao.m_departments.push_back("D25555");
 
             //config department
             Department dpt("D1212");
@@ -187,13 +187,14 @@ namespace DepartmentTester
             dpt.AddTag("bbb");
 
             //test
-            dpt.m_tempStudents.push_back(&yaoyao);
-            dpt.m_tempStudents.push_back(&hbb);
-            dpt.m_tempStudents.push_back(&paopao);
+            dpt.AddTempStudent(&yaoyao);
+            dpt.AddTempStudent(&hbb);
+            dpt.AddTempStudent(&paopao);
             dpt.SortTempStudents();
-            Assert::AreEqual(yaoyao.Id(), dpt.m_tempStudents[0]->Id());
-            Assert::AreEqual(hbb.Id(), dpt.m_tempStudents[1]->Id());
-            Assert::AreEqual(paopao.Id(), dpt.m_tempStudents[2]->Id());
+            std::vector<Student *> temp = dpt.TempStudents();
+            Assert::AreEqual(paopao.Id(), temp[0]->Id());
+            Assert::AreEqual(hbb.Id(), temp[1]->Id());
+            Assert::AreEqual(yaoyao.Id(), temp[2]->Id());
 
         }
 
@@ -207,7 +208,7 @@ namespace DepartmentTester
             paopao.m_departments.push_back("D24444");
             paopao.m_departments.push_back("D25555");
 
-            Student yaoyao("031502442");
+            Student yaoyao("031502522");
             yaoyao.addTag("aaa");
             yaoyao.addTag("ccc");
 
@@ -220,9 +221,9 @@ namespace DepartmentTester
             Department dpt("D1212");
             dpt.AddTag("aaa");
             dpt.AddTag("bbb");
-            dpt.m_tempStudents.push_back(&paopao);
-            dpt.m_tempStudents.push_back(&yaoyao);
-            dpt.m_tempStudents.push_back(&hbb);
+            dpt.AddTempStudent(&paopao);
+            dpt.AddTempStudent(&yaoyao);
+            dpt.AddTempStudent(&hbb);
 
             //test
             dpt.SetMemberLimit(2);

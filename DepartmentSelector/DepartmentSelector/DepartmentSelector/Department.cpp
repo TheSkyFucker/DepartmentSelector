@@ -66,7 +66,6 @@ void Department::SelectStudents() throw(std::exception)
 
     //Logic Path 2: 执行淘汰算法
     SortTempStudents();
-    std::reverse(m_tempStudents.begin(), m_tempStudents.end());
     while ((int)m_students.size() < m_memberLimit)
     {
         m_students.push_back(m_tempStudents.back());
@@ -179,6 +178,35 @@ void Department::AddTag(std::string aTag) throw()
         }
     }
     m_tags.push_back(aTag);
+}
+
+std::vector<Student*> Department::TempStudents() const throw()
+{
+    return m_tempStudents;
+}
+
+void Department::AddTempStudent(Student * aStudent) throw()
+{
+    //already in m_tempStudent
+    for (auto m_tempStudent : m_tempStudents)
+    {
+        if (m_tempStudent->Id() == aStudent->Id())
+        {
+            return;
+        }
+    }
+
+    //already in m_student
+    for (auto m_student : m_students)
+    {
+        if (m_student->Id() == aStudent->Id())
+        {
+            return;
+        }
+    }
+
+    //add
+    m_tempStudents.push_back(aStudent);
 }
 
 Department::~Department()
