@@ -20,11 +20,11 @@ class Department
     std::vector<Student *> m_students;      //部门正式成员
     int m_memberLimit;                      //学生上限
     std::vector<TimeSegment> m_schedules;   //活动时间                                            
+    std::vector<std::string> m_tags;        //兴趣标签
 
 public:
 
     std::vector<Student *> m_tempStudents;  //部门候选成员
-    std::vector<std::string> m_tags;        //兴趣标签
 
 
     //************************************
@@ -99,7 +99,7 @@ public:
     // Qualifier: const throw()
     // Parameter: const Student & aStudent
     //************************************
-    double GetStudentValue(const Student &aStudent) const throw();
+    double GetStudentValue(Student &aStudent) const throw();
 
 
     //************************************
@@ -132,6 +132,26 @@ public:
     //************************************
     void AddSchedule(TimeSegment aSchedule) throw();
 
+
+    //************************************
+    // Method:    Tags
+    // FullName:  Department::Tags
+    // Access:    public 
+    // Returns:   std::vector<std::string>
+    // Qualifier: throw()
+    //************************************
+    std::vector<std::string> Tags() throw();
+
+
+    //************************************
+    // Method:    AddTag
+    // FullName:  Department::AddTag
+    // Access:    public 
+    // Returns:   void
+    // Qualifier: throw()
+    // Parameter: std::string aTag
+    //************************************
+    void AddTag(std::string aTag) throw();
 
     ~Department();
 

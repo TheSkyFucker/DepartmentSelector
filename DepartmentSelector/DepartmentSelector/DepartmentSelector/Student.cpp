@@ -40,6 +40,23 @@ void Student::AddFreeTime(TimeSegment aFreeTime) throw()
     m_freeTimes = result;
 }
 
+std::vector<std::string> Student::Tags() throw()
+{
+    return m_tags;
+}
+
+void Student::addTag(std::string aTag) throw()
+{
+    for (auto m_tag : m_tags)
+    {
+        if (m_tag == aTag)
+        {
+            return;
+        }
+    }
+    m_tags.push_back(aTag);
+}
+
 Student::~Student()
 {
 }

@@ -93,14 +93,14 @@ void Department::SetMemberLimit(int aLimit) throw(std::exception)
     m_memberLimit = aLimit;
 }
 
-double Department::GetStudentValue(const Student & aStudent) const throw()
+double Department::GetStudentValue(Student & aStudent) const throw()
 {
     //get same tag
     int numberTag = 0;
     for (auto m_tag : m_tags)
     {
         bool has = false;
-        for (auto studentTag : aStudent.m_tags)
+        for (auto studentTag : aStudent.Tags())
         {
             if (studentTag == m_tag)
             {
@@ -160,6 +160,25 @@ void Department::AddSchedule(TimeSegment aSchedule) throw()
         result.push_back(aSchedule);
     }
     m_schedules = result;
+}
+
+
+
+std::vector<std::string> Department::Tags() throw()
+{
+    return m_tags;
+}
+
+void Department::AddTag(std::string aTag) throw()
+{
+    for (auto tag : m_tags)
+    {
+        if (tag == aTag)
+        {
+            return;
+        }
+    }
+    m_tags.push_back(aTag);
 }
 
 Department::~Department()

@@ -148,10 +148,10 @@ namespace DepartmentTester
         {
             //config
             Student paopao("031502442");
-            paopao.m_tags.push_back("aaa");
+            paopao.addTag("aaa");
             Department dpt("D1212");
-            dpt.m_tags.push_back("aaa");
-            dpt.m_tags.push_back("aaaa");
+            dpt.AddTag("aaa");
+            dpt.AddTag("aaaa");
             const double PAOPAO_VALUE = 1. * 1 / (1 + 0);
             const double EPS = 1e-6;
             
@@ -166,25 +166,25 @@ namespace DepartmentTester
 
             //config students
             Student paopao("031502442");
-            paopao.m_tags.push_back("aaa");
-            paopao.m_tags.push_back("bbb");
+            paopao.addTag("aaa");
+            paopao.addTag("bbb");
             paopao.m_departments.push_back("D23333");
             paopao.m_departments.push_back("D24444");
             paopao.m_departments.push_back("D25555");
 
             Student yaoyao("031502442");
-            yaoyao.m_tags.push_back("aaa");
-            yaoyao.m_tags.push_back("ccc");
+            yaoyao.addTag("aaa");
+            yaoyao.addTag("ccc");
 
             Student hbb("?????????");
-            hbb.m_tags.push_back("aaa");
-            hbb.m_tags.push_back("bbb");
+            hbb.addTag("aaa");
+            hbb.addTag("bbb");
             hbb.m_departments.push_back("D23333");
 
             //config department
             Department dpt("D1212");
-            dpt.m_tags.push_back("aaa");
-            dpt.m_tags.push_back("bbb");
+            dpt.AddTag("aaa");
+            dpt.AddTag("bbb");
 
             //test
             dpt.m_tempStudents.push_back(&yaoyao);
@@ -201,25 +201,25 @@ namespace DepartmentTester
         {
             //config students
             Student paopao("031502442");
-            paopao.m_tags.push_back("aaa");
-            paopao.m_tags.push_back("bbb");
+            paopao.addTag("aaa");
+            paopao.addTag("bbb");
             paopao.m_departments.push_back("D23333");
             paopao.m_departments.push_back("D24444");
             paopao.m_departments.push_back("D25555");
 
             Student yaoyao("031502442");
-            yaoyao.m_tags.push_back("aaa");
-            yaoyao.m_tags.push_back("ccc");
+            yaoyao.addTag("aaa");
+            yaoyao.addTag("ccc");
 
             Student hbb("?????????");
-            hbb.m_tags.push_back("aaa");
-            hbb.m_tags.push_back("bbb");
+            hbb.addTag("aaa");
+            hbb.addTag("bbb");
             hbb.m_departments.push_back("D23333");
 
             //config department
             Department dpt("D1212");
-            dpt.m_tags.push_back("aaa");
-            dpt.m_tags.push_back("bbb");
+            dpt.AddTag("aaa");
+            dpt.AddTag("bbb");
             dpt.m_tempStudents.push_back(&paopao);
             dpt.m_tempStudents.push_back(&yaoyao);
             dpt.m_tempStudents.push_back(&hbb);
