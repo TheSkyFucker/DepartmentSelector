@@ -1,7 +1,6 @@
 ﻿#include "stdafx.h"
 #include "TimeSegment.h"
-
-
+#include <algorithm>
 
 
 TimeSegment::TimeSegment(const std::string str)     //e.g Mon.16: 00~18 : 00
@@ -31,24 +30,56 @@ TimeSegment::TimeSegment(const std::string str)     //e.g Mon.16: 00~18 : 00
 
 }
 
-int TimeSegment::GetDay()
+int TimeSegment::Day() const throw()
 {
     return m_day;
 }
 
-int TimeSegment::GetBegin()
+int TimeSegment::Begin() const throw()
 {
     return m_begin;
 }
 
-int TimeSegment::GetEnd()
+int TimeSegment::End() const throw()
 {
     return m_end;
 }
 
-bool TimeSegment::Include(TimeSegment aSeg)
+bool TimeSegment::Include(TimeSegment aSegment) const throw()
 {
-    return m_day == aSeg.GetDay() && m_begin <= aSeg.GetBegin() && m_end >= aSeg.GetEnd();
+    return m_day == aSegment.Day() 
+        && m_begin <= aSegment.Begin() 
+        && m_end >= aSegment.End();
+}
+
+bool TimeSegment::Combine(TimeSegment aSegment) throw()
+{
+    //check status
+    bool result = m_day == aSegment.Day()
+        && !(m_end < aSegment.Begin() || m_begin > aSegment.End());
+    
+    //do combine
+    if (result)
+    {
+        m_begin = std::min(m_begin, aSegment.Begin());
+        m_end = std::max(m_end, aSegment.End());
+    }
+    
+    //return 
+    return result;
+}
+
+bool TimeSegment::operator<(const TimeSegment & aSegment) const throw()
+{
+    if (m_day != aSegment.Day())
+    {
+        return m_day < aSegment.Day();
+    }
+    if (m_begin != aSegment.Begin())
+    {
+        return m_begin < aSegment.Begin();
+    }
+    return m_begin < aSegment.End();
 }
 
 TimeSegment::~TimeSegment()

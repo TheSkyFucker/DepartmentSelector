@@ -19,13 +19,11 @@ class Department
     std::string m_id;                       //部门编号
     std::vector<Student *> m_students;      //部门正式成员
     int m_memberLimit;                      //学生上限
-
-public:
-
-    std::vector<Student *> m_tempStudents;  //部门候选成员
     std::vector<TimeSegment> m_schedules;   //活动时间                                            
     std::vector<std::string> m_tags;        //兴趣标签
+    std::vector<Student *> m_tempStudents;  //部门候选成员
 
+public:
 
     //************************************
     // Method:    Department
@@ -99,7 +97,7 @@ public:
     // Qualifier: const throw()
     // Parameter: const Student & aStudent
     //************************************
-    double GetStudentValue(const Student &aStudent) const throw();
+    double GetStudentValue(Student &aStudent) const throw();
 
 
     //************************************
@@ -108,9 +106,72 @@ public:
     // Access:    public 
     // Returns:   void
     // Qualifier: throw()
+    // Lable:     从小到大排
     //************************************
     void SortTempStudents() throw();
 
+
+    //************************************
+    // Method:    Schedules
+    // FullName:  Department::Schedules
+    // Access:    public 
+    // Returns:   std::vector<TimeSegment>
+    // Qualifier: const throw()
+    //************************************
+    std::vector<TimeSegment> Schedules() const throw();
+
+
+    //************************************
+    // Method:    AddSchedule
+    // FullName:  Department::AddSchedule
+    // Access:    public 
+    // Returns:   void
+    // Qualifier: throw()
+    // Parameter: TimeSegment aSchedule
+    //************************************
+    void AddSchedule(TimeSegment aSchedule) throw();
+
+
+    //************************************
+    // Method:    Tags
+    // FullName:  Department::Tags
+    // Access:    public 
+    // Returns:   std::vector<std::string>
+    // Qualifier: throw()
+    //************************************
+    std::vector<std::string> Tags() throw();
+
+
+    //************************************
+    // Method:    AddTag
+    // FullName:  Department::AddTag
+    // Access:    public 
+    // Returns:   void
+    // Qualifier: throw()
+    // Parameter: std::string aTag
+    //************************************
+    void AddTag(std::string aTag) throw();
+
+
+    //************************************
+    // Method:    TempStudents
+    // FullName:  Department::TempStudents
+    // Access:    public 
+    // Returns:   std::vector<Student *>
+    // Qualifier: const throw()
+    //************************************
+    std::vector<Student *> TempStudents() const throw();
+
+
+    //************************************
+    // Method:    AddTempStudent
+    // FullName:  Department::AddTempStudent
+    // Access:    public 
+    // Returns:   void
+    // Qualifier: throw()
+    // Parameter: Student * aStudent
+    //************************************
+    void AddTempStudent(Student * aStudent) throw();
 
     ~Department();
 

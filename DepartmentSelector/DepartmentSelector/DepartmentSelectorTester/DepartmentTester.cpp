@@ -38,26 +38,27 @@ namespace DepartmentTester
 		{
             ///config
 		    Department dpt("D0001");
-            dpt.m_tempStudents.clear();
             Student paopao("031502442");
             Student yaoyao("031502522");
             //test
-            dpt.m_tempStudents.push_back(&paopao);
-            dpt.m_tempStudents.push_back(&yaoyao);
-            Assert::AreEqual(2, (int)dpt.m_tempStudents.size());
+            dpt.AddTempStudent(&paopao);
+            dpt.AddTempStudent(&yaoyao);
+            Assert::AreEqual(2, (int)dpt.TempStudents().size());
 		}
 
         TEST_METHOD(AddSchedule)
         {
             //config
             const TimeSegment SCHEDULE_1("Sat.14: 00~16: 00");
-            const TimeSegment SCHEDULE_2("Sat.14: 00~16: 00");
-
+            const TimeSegment SCHEDULE_2("Sat.15: 00~18: 00");
+            
             //test
             Department dpt("D0001");
-            dpt.m_schedules.push_back(SCHEDULE_1);
-            dpt.m_schedules.push_back(SCHEDULE_2);
-            Assert::AreEqual(2, (int)dpt.m_schedules.size());
+            dpt.AddSchedule(SCHEDULE_1);
+            dpt.AddSchedule(SCHEDULE_2);
+            Assert::AreEqual(1, (int)dpt.Schedules().size());
+            Assert::AreEqual(14 * 60, dpt.Schedules().back().Begin());
+            Assert::AreEqual(18 * 60, dpt.Schedules().back().End());
         }
 
         TEST_METHOD(DeleteConflictStudents)
@@ -68,17 +69,17 @@ namespace DepartmentTester
             const TimeSegment SCHEDULE("Sat.16: 00~17: 00");
             Student paopao("031502442");
             Student yaoyao("031502522");
-            paopao.m_freeTimes.push_back(PAOPAO_FREE_TIME);
-            yaoyao.m_freeTimes.push_back(YAOYAO_FREE_TIME);
+            paopao.AddFreeTime(PAOPAO_FREE_TIME);
+            yaoyao.AddFreeTime(YAOYAO_FREE_TIME);
             Department dpt("D23333");
-            dpt.m_schedules.push_back(SCHEDULE);
-            dpt.m_tempStudents.push_back(&paopao);
-            dpt.m_tempStudents.push_back(&yaoyao);
+            dpt.AddSchedule(SCHEDULE);
+            dpt.AddTempStudent(&paopao);
+            dpt.AddTempStudent(&yaoyao);
 
             //test
             dpt.DeleteConflictStudents();
-            Assert::AreEqual(1, (int)dpt.m_tempStudents.size());
-            Assert::AreEqual((int)(&yaoyao), (int)dpt.m_tempStudents.back());;
+            Assert::AreEqual(1, (int)dpt.TempStudents().size());
+            Assert::AreEqual((int)(&yaoyao), (int)dpt.TempStudents().back());;
         }
 
         TEST_METHOD(SelectStudents_Logic1)
@@ -89,12 +90,12 @@ namespace DepartmentTester
             const TimeSegment SCHEDULE("Sat.16: 00~17: 00");
             Student paopao("031502442");
             Student yaoyao("031502522");
-            paopao.m_freeTimes.push_back(PAOPAO_FREE_TIME);
-            yaoyao.m_freeTimes.push_back(YAOYAO_FREE_TIME);
+            paopao.AddFreeTime(PAOPAO_FREE_TIME);
+            yaoyao.AddFreeTime(YAOYAO_FREE_TIME);
             Department dpt("D23333");
-            dpt.m_schedules.push_back(SCHEDULE);
-            dpt.m_tempStudents.push_back(&paopao);
-            dpt.m_tempStudents.push_back(&yaoyao);
+            dpt.AddSchedule(SCHEDULE);
+            dpt.AddTempStudent(&paopao);
+            dpt.AddTempStudent(&yaoyao);
 
             //test only freetime conflict
             dpt.SetMemberLimit(10);
@@ -146,10 +147,10 @@ namespace DepartmentTester
         {
             //config
             Student paopao("031502442");
-            paopao.m_tags.push_back("aaa");
+            paopao.AddTag("aaa");
             Department dpt("D1212");
-            dpt.m_tags.push_back("aaa");
-            dpt.m_tags.push_back("aaaa");
+            dpt.AddTag("aaa");
+            dpt.AddTag("aaaa");
             const double PAOPAO_VALUE = 1. * 1 / (1 + 0);
             const double EPS = 1e-6;
             
@@ -164,34 +165,36 @@ namespace DepartmentTester
 
             //config students
             Student paopao("031502442");
-            paopao.m_tags.push_back("aaa");
-            paopao.m_tags.push_back("bbb");
-            paopao.m_departments.push_back("D23333");
-            paopao.m_departments.push_back("D24444");
-            paopao.m_departments.push_back("D25555");
+            paopao.AddTag("aaa");
+            paopao.AddTag("bbb");
+            paopao.AddDepartment("D23333");
+            paopao.AddDepartment("D24444");
+            paopao.AddDepartment("D25555");
 
-            Student yaoyao("031502442");
-            yaoyao.m_tags.push_back("aaa");
-            yaoyao.m_tags.push_back("ccc");
+            Student yaoyao("03152522");
+            yaoyao.AddTag("aaa");
+            yaoyao.AddTag("ccc");
 
             Student hbb("?????????");
-            hbb.m_tags.push_back("aaa");
-            hbb.m_tags.push_back("bbb");
-            hbb.m_departments.push_back("D23333");
+            hbb.AddTag("aaa");
+            hbb.AddTag("bbb");
+            hbb.AddDepartment("D23333");
+            paopao.AddDepartment("D25555");
 
             //config department
             Department dpt("D1212");
-            dpt.m_tags.push_back("aaa");
-            dpt.m_tags.push_back("bbb");
+            dpt.AddTag("aaa");
+            dpt.AddTag("bbb");
 
             //test
-            dpt.m_tempStudents.push_back(&yaoyao);
-            dpt.m_tempStudents.push_back(&hbb);
-            dpt.m_tempStudents.push_back(&paopao);
+            dpt.AddTempStudent(&yaoyao);
+            dpt.AddTempStudent(&hbb);
+            dpt.AddTempStudent(&paopao);
             dpt.SortTempStudents();
-            Assert::AreEqual(yaoyao.Id(), dpt.m_tempStudents[0]->Id());
-            Assert::AreEqual(hbb.Id(), dpt.m_tempStudents[1]->Id());
-            Assert::AreEqual(paopao.Id(), dpt.m_tempStudents[2]->Id());
+            std::vector<Student *> temp = dpt.TempStudents();
+            Assert::AreEqual(paopao.Id(), temp[0]->Id());
+            Assert::AreEqual(hbb.Id(), temp[1]->Id());
+            Assert::AreEqual(yaoyao.Id(), temp[2]->Id());
 
         }
 
@@ -199,28 +202,28 @@ namespace DepartmentTester
         {
             //config students
             Student paopao("031502442");
-            paopao.m_tags.push_back("aaa");
-            paopao.m_tags.push_back("bbb");
-            paopao.m_departments.push_back("D23333");
-            paopao.m_departments.push_back("D24444");
-            paopao.m_departments.push_back("D25555");
+            paopao.AddTag("aaa");
+            paopao.AddTag("bbb");
+            paopao.AddDepartment("D23333");
+            paopao.AddDepartment("D24444");
+            paopao.AddDepartment("D25555");
 
-            Student yaoyao("031502442");
-            yaoyao.m_tags.push_back("aaa");
-            yaoyao.m_tags.push_back("ccc");
+            Student yaoyao("031502522");
+            yaoyao.AddTag("aaa");
+            yaoyao.AddTag("ccc");
 
             Student hbb("?????????");
-            hbb.m_tags.push_back("aaa");
-            hbb.m_tags.push_back("bbb");
-            hbb.m_departments.push_back("D23333");
+            hbb.AddTag("aaa");
+            hbb.AddTag("bbb");
+            hbb.AddDepartment("D23333");
 
             //config department
             Department dpt("D1212");
-            dpt.m_tags.push_back("aaa");
-            dpt.m_tags.push_back("bbb");
-            dpt.m_tempStudents.push_back(&paopao);
-            dpt.m_tempStudents.push_back(&yaoyao);
-            dpt.m_tempStudents.push_back(&hbb);
+            dpt.AddTag("aaa");
+            dpt.AddTag("bbb");
+            dpt.AddTempStudent(&paopao);
+            dpt.AddTempStudent(&yaoyao);
+            dpt.AddTempStudent(&hbb);
 
             //test
             dpt.SetMemberLimit(2);

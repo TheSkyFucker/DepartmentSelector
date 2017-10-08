@@ -22,7 +22,7 @@ void Department::DeleteConflictStudents() throw()
         for (auto schedule : m_schedules)
         {
             bool ok = false;
-            for (auto freeTime : student->m_freeTimes)
+            for (auto freeTime : student->FreeTimes())
             {
                 if (freeTime.Include(schedule))
                 {
@@ -66,7 +66,6 @@ void Department::SelectStudents() throw(std::exception)
 
     //Logic Path 2: 执行淘汰算法
     SortTempStudents();
-    std::reverse(m_tempStudents.begin(), m_tempStudents.end());
     while ((int)m_students.size() < m_memberLimit)
     {
         m_students.push_back(m_tempStudents.back());
@@ -93,14 +92,14 @@ void Department::SetMemberLimit(int aLimit) throw(std::exception)
     m_memberLimit = aLimit;
 }
 
-double Department::GetStudentValue(const Student & aStudent) const throw()
+double Department::GetStudentValue(Student & aStudent) const throw()
 {
     //get same tag
     int numberTag = 0;
     for (auto m_tag : m_tags)
     {
         bool has = false;
-        for (auto studentTag : aStudent.m_tags)
+        for (auto studentTag : aStudent.Tags())
         {
             if (studentTag == m_tag)
             {
@@ -112,7 +111,7 @@ double Department::GetStudentValue(const Student & aStudent) const throw()
     }
 
     //count
-    return numberTag / (1. + (double)aStudent.m_departments.size());
+    return numberTag / (1. + (double)aStudent.Departments().size());
 }
 
 void Department::SortTempStudents() throw()
@@ -132,6 +131,82 @@ void Department::SortTempStudents() throw()
     {
         m_tempStudents.push_back(elem.second);
     }
+}
+
+std::vector<TimeSegment> Department::Schedules() const throw()
+{
+    return m_schedules;
+}
+
+void Department::AddSchedule(TimeSegment aSchedule) throw()
+{
+    std::vector<TimeSegment> result;
+    bool login = false;
+    for (auto m_schedule : m_schedules)
+    {
+        if (aSchedule.Combine(m_schedule) == false)
+        {
+            if (aSchedule < m_schedule)
+            {
+                login = true;
+                result.push_back(aSchedule);
+            }
+            result.push_back(m_schedule);
+        }
+    }
+    if (login == false)
+    {
+        result.push_back(aSchedule);
+    }
+    m_schedules = result;
+}
+
+
+
+std::vector<std::string> Department::Tags() throw()
+{
+    return m_tags;
+}
+
+void Department::AddTag(std::string aTag) throw()
+{
+    for (auto tag : m_tags)
+    {
+        if (tag == aTag)
+        {
+            return;
+        }
+    }
+    m_tags.push_back(aTag);
+}
+
+std::vector<Student*> Department::TempStudents() const throw()
+{
+    return m_tempStudents;
+}
+
+void Department::AddTempStudent(Student * aStudent) throw()
+{
+    //already in m_tempStudent
+    for (auto m_tempStudent : m_tempStudents)
+    {
+        if (m_tempStudent->Id() == aStudent->Id())
+        {
+            return;
+        }
+    }
+
+    //already in m_student
+    for (auto m_student : m_students)
+    {
+        if (m_student->Id() == aStudent->Id())
+        {
+            return;
+        }
+    }
+
+    //add
+    m_tempStudents.push_back(aStudent);
 }
 
 Department::~Department()

@@ -25,13 +25,18 @@ namespace StudentTester
         {
             //config
             const TimeSegment FREE_TIME_1("Sat.14: 00~16: 00");
-            const TimeSegment FREE_TIME_2("Sat.14: 00~16: 00");
+            const TimeSegment FREE_TIME_2("Sat.17: 00~18: 00");
+            const TimeSegment FREE_TIME_3("Sat.16: 00~17: 00");
 
             //test
             Student yaoyao("031502522");
-            yaoyao.m_freeTimes.push_back(FREE_TIME_1);
-            yaoyao.m_freeTimes.push_back(FREE_TIME_2);
-            Assert::AreEqual(2, (int)yaoyao.m_freeTimes.size());
+            yaoyao.AddFreeTime(FREE_TIME_1);
+            yaoyao.AddFreeTime(FREE_TIME_2);
+            Assert::AreEqual(2, (int)yaoyao.FreeTimes().size());
+            yaoyao.AddFreeTime(FREE_TIME_3);
+            Assert::AreEqual(1, (int)yaoyao.FreeTimes().size());
+            Assert::AreEqual(14 * 60, yaoyao.FreeTimes().back().Begin());
+            Assert::AreEqual(18 * 60, yaoyao.FreeTimes().back().End());
         }
     };
 }
