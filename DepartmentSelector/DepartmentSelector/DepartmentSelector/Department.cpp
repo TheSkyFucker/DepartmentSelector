@@ -134,6 +134,23 @@ void Department::SortTempStudents() throw()
     }
 }
 
+std::vector<TimeSegment> Department::Schedules() const throw()
+{
+    return m_schedules;
+}
+
+void Department::AddSchedule(TimeSegment aSchedule) throw()
+{
+    for (auto m_schedule : m_schedules)
+    {
+        if (m_schedule.Combine(aSchedule))
+        {
+            return;
+        }
+    }
+    m_schedules.push_back(aSchedule);
+}
+
 Department::~Department()
 {
 }

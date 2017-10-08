@@ -19,11 +19,11 @@ class Department
     std::string m_id;                       //部门编号
     std::vector<Student *> m_students;      //部门正式成员
     int m_memberLimit;                      //学生上限
+    std::vector<TimeSegment> m_schedules;   //活动时间                                            
 
 public:
 
     std::vector<Student *> m_tempStudents;  //部门候选成员
-    std::vector<TimeSegment> m_schedules;   //活动时间                                            
     std::vector<std::string> m_tags;        //兴趣标签
 
 
@@ -110,6 +110,27 @@ public:
     // Qualifier: throw()
     //************************************
     void SortTempStudents() throw();
+
+
+    //************************************
+    // Method:    Schedules
+    // FullName:  Department::Schedules
+    // Access:    public 
+    // Returns:   std::vector<TimeSegment>
+    // Qualifier: const throw()
+    //************************************
+    std::vector<TimeSegment> Schedules() const throw();
+
+
+    //************************************
+    // Method:    AddSchedule
+    // FullName:  Department::AddSchedule
+    // Access:    public 
+    // Returns:   void
+    // Qualifier: throw()
+    // Parameter: TimeSegment aSchedule
+    //************************************
+    void AddSchedule(TimeSegment aSchedule) throw();
 
 
     ~Department();
