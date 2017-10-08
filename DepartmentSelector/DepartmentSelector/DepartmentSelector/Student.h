@@ -17,12 +17,11 @@ class Student
 {
 
     std::string m_id;                               //学号
-    //std::vector<std::string> m_applications;      //部门意愿
+    std::vector<TimeSegment> m_freeTimes;           //空闲时间
 
 public:
 
     std::vector<std::string> m_tags;                //兴趣标签
-    std::vector<TimeSegment> m_freeTimes;           //空闲时间
     std::vector<std::string> m_departments;         //中选部门
 
 
@@ -46,6 +45,26 @@ public:
     //************************************
     std::string Id() const throw();
 
+
+    //************************************
+    // Method:    FreeTimes
+    // FullName:  Student::FreeTimes
+    // Access:    public 
+    // Returns:   std::vector<TimeSegment>
+    // Qualifier: const throw()
+    //************************************
+    std::vector<TimeSegment> FreeTimes() const throw();
+
+
+    //************************************
+    // Method:    AddFreeTime
+    // FullName:  Student::AddFreeTime
+    // Access:    public 
+    // Returns:   void
+    // Qualifier: throw()
+    // Parameter: TimeSegment aFreeTime
+    //************************************
+    void AddFreeTime(TimeSegment aFreeTime) throw();
 
     ~Student();
     

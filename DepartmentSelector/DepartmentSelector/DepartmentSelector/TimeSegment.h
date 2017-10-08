@@ -20,44 +20,57 @@ public:
 
 
     //************************************
-    // Method:    GetDay
-    // FullName:  TimeSegment::GetDay
+    // Method:    Day
+    // FullName:  TimeSegment::Day
     // Access:    public 
     // Returns:   int
-    // Qualifier:
+    // Qualifier: const throw()
     //************************************
-    int GetDay();
+    int Day() const throw();
 
 
     //************************************
-    // Method:    GetBegin
-    // FullName:  TimeSegment::GetBegin
+    // Method:    Begin
+    // FullName:  TimeSegment::Begin
     // Access:    public 
     // Returns:   int
-    // Qualifier:
+    // Qualifier: const throw()
     //************************************
-    int GetBegin();
+    int Begin() const throw();
 
 
     //************************************
-    // Method:    GetEnd
-    // FullName:  TimeSegment::GetEnd
+    // Method:    End
+    // FullName:  TimeSegment::End
     // Access:    public 
     // Returns:   int
-    // Qualifier:
+    // Qualifier: const throw()
     //************************************
-    int GetEnd();
+    int End() const throw();
 
 
     //************************************
-    // Method:    IsInclude
-    // FullName:  TimeSegment::IsInclude
+    // Method:    Include
+    // FullName:  TimeSegment::Include
     // Access:    public 
     // Returns:   bool
-    // Qualifier:
+    // Qualifier: const throw()
     // Parameter: TimeSegment
     //************************************
-    bool Include(TimeSegment);
+    bool Include(TimeSegment aSegment) const throw();
+
+
+
+    //************************************
+    // Method:    Combine
+    // FullName:  TimeSegment::Combine
+    // Access:    public 
+    // Returns:   bool
+    // Qualifier: throw()
+    // Parameter: TimeSegment aSegment
+    // Lable:     有交则合并并返回true, 否则false
+    //************************************
+    bool Combine(TimeSegment aSegment) throw();
 
     ~TimeSegment();
 

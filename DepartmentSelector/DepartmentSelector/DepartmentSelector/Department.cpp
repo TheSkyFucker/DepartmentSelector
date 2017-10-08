@@ -22,7 +22,7 @@ void Department::DeleteConflictStudents() throw()
         for (auto schedule : m_schedules)
         {
             bool ok = false;
-            for (auto freeTime : student->m_freeTimes)
+            for (auto freeTime : student->FreeTimes())
             {
                 if (freeTime.Include(schedule))
                 {
