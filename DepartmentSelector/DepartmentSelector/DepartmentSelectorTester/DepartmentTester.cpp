@@ -167,9 +167,9 @@ namespace DepartmentTester
             Student paopao("031502442");
             paopao.AddTag("aaa");
             paopao.AddTag("bbb");
-            paopao.AddDepartment("D23333");
-            paopao.AddDepartment("D24444");
-            paopao.AddDepartment("D25555");
+            paopao.AddDepartment("D23333", std::vector<TimeSegment>());
+            paopao.AddDepartment("D24444", std::vector<TimeSegment>());
+            paopao.AddDepartment("D25555", std::vector<TimeSegment>());
 
             Student yaoyao("03152522");
             yaoyao.AddTag("aaa");
@@ -178,8 +178,8 @@ namespace DepartmentTester
             Student hbb("?????????");
             hbb.AddTag("aaa");
             hbb.AddTag("bbb");
-            hbb.AddDepartment("D23333");
-            paopao.AddDepartment("D25555");
+            hbb.AddDepartment("D23333", std::vector<TimeSegment>());
+            paopao.AddDepartment("D25555", std::vector<TimeSegment>());
 
             //config department
             Department dpt("D1212");
@@ -204,9 +204,9 @@ namespace DepartmentTester
             Student paopao("031502442");
             paopao.AddTag("aaa");
             paopao.AddTag("bbb");
-            paopao.AddDepartment("D23333");
-            paopao.AddDepartment("D24444");
-            paopao.AddDepartment("D25555");
+            paopao.AddDepartment("D23333", std::vector<TimeSegment>());
+            paopao.AddDepartment("D24444", std::vector<TimeSegment>());
+            paopao.AddDepartment("D25555", std::vector<TimeSegment>());
 
             Student yaoyao("031502522");
             yaoyao.AddTag("aaa");
@@ -215,7 +215,7 @@ namespace DepartmentTester
             Student hbb("?????????");
             hbb.AddTag("aaa");
             hbb.AddTag("bbb");
-            hbb.AddDepartment("D23333");
+            hbb.AddDepartment("D23333", std::vector<TimeSegment>());
 
             //config department
             Department dpt("D1212");

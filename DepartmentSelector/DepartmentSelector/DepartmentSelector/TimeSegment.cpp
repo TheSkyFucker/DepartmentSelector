@@ -3,7 +3,7 @@
 #include <algorithm>
 
 
-TimeSegment::TimeSegment(const std::string str)     //e.g Mon.16: 00~18 : 00
+TimeSegment::TimeSegment(const std::string str)     //e.g Mon.16: 00~18: 00
 {
 
     //config
@@ -28,6 +28,13 @@ TimeSegment::TimeSegment(const std::string str)     //e.g Mon.16: 00~18 : 00
     m_begin = begin.first * 60 + begin.second;
     m_end = end.first * 60 + end.second;
 
+}
+
+TimeSegment::TimeSegment(int _day, int _begin, int _end)
+{
+    m_day = _day;
+    m_begin = _begin;
+    m_end = _end;
 }
 
 int TimeSegment::Day() const throw()
@@ -80,6 +87,27 @@ bool TimeSegment::operator<(const TimeSegment & aSegment) const throw()
         return m_begin < aSegment.Begin();
     }
     return m_begin < aSegment.End();
+}
+
+std::vector<TimeSegment> TimeSegment::Cut(TimeSegment aSegment) throw()
+{
+    std::vector<TimeSegment> result;
+    if (m_day == aSegment.Day())
+    {
+        if (aSegment.Begin() > m_begin && aSegment.Begin() <= m_end)
+        {
+            result.push_back(TimeSegment(m_day, m_begin, aSegment.Begin()));        
+        }
+        if (aSegment.End() < m_end && aSegment.End() >= m_begin)
+        {
+            result.push_back(TimeSegment(m_day, aSegment.End(), m_end));
+        }
+    }
+    if (result.empty() && aSegment.Include(*this) == false)
+    {
+        result.push_back(*this);
+    }
+    return result;
 }
 
 TimeSegment::~TimeSegment()

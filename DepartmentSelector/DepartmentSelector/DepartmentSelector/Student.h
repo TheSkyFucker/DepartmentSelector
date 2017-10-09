@@ -22,6 +22,16 @@ class Student
     std::vector<std::string> m_departments;         //中选部门
     std::vector<std::string> m_applications;        //部门意愿
 
+    //************************************
+    // Method:    DeleteFreeTimes
+    // FullName:  Student::DeleteFreeTimes
+    // Access:    private 
+    // Returns:   void
+    // Qualifier: throw()
+    // Parameter: TimeSegment aSegment
+    //************************************
+    void DeleteFreeTimes(TimeSegment aSegment) throw();
+
 public:
 
 
@@ -106,8 +116,9 @@ public:
     // Returns:   void
     // Qualifier: throw()
     // Parameter: std::string aDepartment
+    // Parameter: std::vector<TimeSegment>
     //************************************
-    void AddDepartment(std::string aDepartment) throw();
+    void AddDepartment(std::string aDepartment, std::vector<TimeSegment>) throw();
 
 
     //************************************

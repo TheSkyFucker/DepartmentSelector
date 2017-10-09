@@ -147,6 +147,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DateGenerator.h" />
     <ClInclude Include="Department.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Student.h" />
@@ -154,6 +155,7 @@
     <ClInclude Include="TimeSegment.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DateGenerator.cpp" />
     <ClCompile Include="Department.cpp" />
     <ClCompile Include="DepartmentSelector.cpp" />
     <ClCompile Include="stdafx.cpp">
