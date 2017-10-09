@@ -39,7 +39,7 @@ void Student::AddFreeTime(TimeSegment aFreeTime) throw()
     {
         if (aFreeTime.Combine(m_freeTime) == false)
         {
-            if (aFreeTime < m_freeTime)
+            if (aFreeTime < m_freeTime && login == false)
             {
                 login = true;
                 result.push_back(aFreeTime);

@@ -10,9 +10,44 @@
 /************************************************************************/
 /* 全局参数                                                              */
 /************************************************************************/
+JsonIO myJsonIO;
 std::vector<Department> departments;
 std::vector<Student> students;
 std::map<std::string, Department *> toDepartment;
+
+
+/************************************************************************/
+/* 职能：读取输入数据                                                      */
+/************************************************************************/
+void ReadJsonData()
+{
+    //config
+    const std::string INPUT_FILE_PATH = "input_data.txt";
+    
+    //read
+    myJsonIO.Read(INPUT_FILE_PATH);
+    students = myJsonIO.DecodeStudents();
+    departments = myJsonIO.DecodeDepartments();
+}
+
+
+/************************************************************************/
+/* 职能：写入输出数据                                                      */
+/************************************************************************/
+void WriteJsonData()
+{
+    //config
+    const std::string OUTPUT_FILE_PATH = "output_data.txt";
+    freopen(OUTPUT_FILE_PATH.c_str(), "w", stdout);
+
+    //write
+    std::string data = myJsonIO.EncodeSelectResult(students, departments);
+    std::cout << data << std::endl;
+    
+    //go back
+    freopen("CON", "w", stdout);
+}
+
 
 /************************************************************************/
 /* 职能：维护下一轮候选                                                    */
@@ -24,6 +59,7 @@ void CreateDepartmentMap()
         toDepartment[departments[_department].Id()] = &departments[_department];
     }
 }
+
 
 /************************************************************************/
 /* 职能：维护下一轮候选                                                    */
@@ -42,6 +78,7 @@ void SubmitApplication(int round)
     }
 }
 
+
 /************************************************************************/
 /* 职能：执行筛选                                                         */
 /************************************************************************/
@@ -54,12 +91,17 @@ void SelectStudents()
     }
 }
 
+
+/************************************************************************/
+/* 职能：总筛选流程                                                       */
+/************************************************************************/
 void DepartmentSelect(int argc, char * argv[])
 {
     //config
     const int ROUND = 5; //round
 
-    //read TODO: Read Studen:Department from input_data.txt
+    //read
+    ReadJsonData();
     
     //创建部门Id索引表
     CreateDepartmentMap(); 
@@ -70,6 +112,9 @@ void DepartmentSelect(int argc, char * argv[])
         SubmitApplication(round);
         SelectStudents();
     }
+
+    //output
+    WriteJsonData();
     
 }
 
@@ -80,15 +125,9 @@ void DepartmentSelect(int argc, char * argv[])
 /************************************************************************/
 int main(int argc, char * argv[])
 {
-    JsonIO myJsonIO;
-    std::vector<Student> students;
 
-
-    //root.Accept(writer);
-    /*std::string str = buffer.GetString();*/
-    //std::cout << buffer.GetString() << std::endl;
     //work
-    /*try
+    try
     {
         if (argc < 2) //默认指令，执行匹配
         {
@@ -98,7 +137,7 @@ int main(int argc, char * argv[])
     catch (const std::exception& e)
     {
         puts(e.what());
-    }*/
+    }
 
     return 0;
 }
