@@ -1,0 +1,50 @@
+{
+    "students": [
+        {
+            "free_time": [
+                "Mon.16: 00~18: 00",
+                "Mon.12: 00~14: 00",
+                "Tues.10: 00~12: 00",
+                "Wed.18: 00~20: 00",
+                "Fri.20: 00~22: 00",
+                "Fri.12: 00~14: 00",
+                "Sat.8: 00~10: 00",
+                "Sat.18: 00~20: 00",
+                "Sat.14: 00~16: 00",
+                "Sun.16: 00~18: 00",
+                "Sun.14: 00~16: 00",
+                "Sun.20: 00~22: 00"
+            ],
+            "student_no": "031502001",
+            "applications_department": [
+                "D007",
+                "D010",
+                "D012",
+                "D005",
+                "D013"
+            ],
+            "tags": [
+                "reading",
+                "programming"
+            ]
+        }
+    ],
+    "departments": [
+        {
+            "event_schedules": [
+                "Sun.8: 00~9: 00"
+            ],
+            "department_no": "D001",
+            "member_limit": 14,
+            "tags": [
+                "film",
+                "English",
+                "reading",
+                "music",
+                "dance",
+                "basketball",
+                "chess"
+            ]
+        }
+    ]
+}

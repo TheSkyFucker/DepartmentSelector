@@ -14,6 +14,8 @@
 #include "include/rapidjson/rapidjson.h"
 #include "include/rapidjson/document.h"
 #include "include/rapidjson/reader.h"
+#include "include/rapidjson/prettywriter.h"
+#include "include/rapidjson/stringbuffer.h"
 #include "../DepartmentSelector/Student.h"
 #include "../DepartmentSelector/Department.h"
 #include "../DepartmentSelector/TimeSegment.h"
@@ -26,7 +28,41 @@ class JsonIO
 {
     
     std::string m_inputJson; //输入数据缓存
+    rapidjson::Document m_doc;
 
+
+
+    //************************************
+    // Method:    EncodeUnluckyStudents
+    // FullName:  JsonIO::EncodeUnluckyStudents
+    // Access:    public 
+    // Returns:   rapidjson
+    // Qualifier: throw()
+    // Parameter: std::vector<Student> students
+    //************************************
+    rapidjson::Value EncodeUnluckyStudents(std::vector<Student> students) throw();
+
+
+    //************************************
+    // Method:    EncodeUnluckyDepartments
+    // FullName:  JsonIO::EncodeUnluckyDepartments
+    // Access:    private 
+    // Returns:   rapidjson
+    // Qualifier: throw()
+    // Parameter: std::vector<Department> departments
+    //************************************
+    rapidjson::Value EncodeUnluckyDepartments(std::vector<Department> departments) throw();
+
+
+    //************************************
+    // Method:    EncodeLuckyDepartments
+    // FullName:  JsonIO::EncodeLuckyDepartments
+    // Access:    private 
+    // Returns:   rapidjson
+    // Qualifier: throw()
+    // Parameter: std::vector<Department> departments
+    //************************************
+    rapidjson::Value EncodeLuckyDepartments(std::vector<Department> departments) throw();
 
 public:
     JsonIO();
@@ -53,6 +89,25 @@ public:
     std::vector<Student> DecodeStudents() const throw(std::exception);
 
 
+    //************************************
+    // Method:    DecodeDepartments
+    // FullName:  JsonIO::DecodeDepartments
+    // Access:    public 
+    // Returns:   std::vector<Department>
+    // Qualifier: const throw(std::exception)
+    //************************************
     std::vector<Department> DecodeDepartments() const throw(std::exception);
+
+
+    //************************************
+    // Method:    EncodeSelectResult
+    // FullName:  JsonIO::EncodeSelectResult
+    // Access:    public 
+    // Returns:   std::string
+    // Qualifier: throw()
+    // Parameter: std::vector<Student> Students
+    // Parameter: std::vector<Department> departments
+    //************************************
+    std::string EncodeSelectResult(std::vector<Student> students, std::vector<Department> departments) throw();
 };
 
