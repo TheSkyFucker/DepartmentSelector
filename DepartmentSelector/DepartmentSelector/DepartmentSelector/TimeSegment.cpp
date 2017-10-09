@@ -3,7 +3,7 @@
 #include <algorithm>
 
 
-TimeSegment::TimeSegment(const std::string str)     //e.g Mon.16: 00~18 : 00
+TimeSegment::TimeSegment(const std::string str)     //e.g Mon.16: 00~18: 00
 {
 
     //config
@@ -103,7 +103,7 @@ std::vector<TimeSegment> TimeSegment::Cut(TimeSegment aSegment) throw()
             result.push_back(TimeSegment(m_day, aSegment.End(), m_end));
         }
     }
-    if (result.empty())
+    if (result.empty() && aSegment.Include(*this) == false)
     {
         result.push_back(*this);
     }

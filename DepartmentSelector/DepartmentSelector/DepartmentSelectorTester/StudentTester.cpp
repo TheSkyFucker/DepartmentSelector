@@ -91,6 +91,30 @@ namespace StudentTester
             applications = yaoyao.Applications();
             Assert::AreEqual(3, (int)applications.size());
         }
+        
+        TEST_METHOD(DeleteFreeTimes)
+        {
+            //config
+            const TimeSegment FREE_TIME_1("Sat.14: 00~16: 00");
+            const TimeSegment FREE_TIME_2("Sat.17: 00~18: 00");
+            const TimeSegment SCHEDULE_1("Sat.17: 00~17: 30");
+            const TimeSegment SCHEDULE_2("Sat.14: 00~20: 30");
+            Student yaoyao("031502522");
+            yaoyao.AddFreeTime(FREE_TIME_1);
+            yaoyao.AddFreeTime(FREE_TIME_2);
+            std::vector<TimeSegment> aSchedules_1;
+            std::vector<TimeSegment> aSchedules_2;
+            aSchedules_1.push_back(TimeSegment(SCHEDULE_1));
+            aSchedules_2.push_back(TimeSegment(SCHEDULE_2));
 
+            //test1
+            yaoyao.AddDepartment("D00001", aSchedules_1);
+            Assert::AreEqual(2, (int)yaoyao.FreeTimes().size());
+            Assert::AreEqual(17 * 60 + 30, yaoyao.FreeTimes()[1].Begin());
+    
+            //test2
+            yaoyao.AddDepartment("D00002", aSchedules_2);
+            Assert::AreEqual(0, (int)yaoyao.FreeTimes().size());
+        }
     };
 }
