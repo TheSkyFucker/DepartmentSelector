@@ -74,6 +74,16 @@ void Student::AddDepartment(std::string aDepartment) throw()
     m_departments.push_back(aDepartment);
 }
 
+std::vector<std::string> Student::Applications() const throw()
+{
+    return m_applications;
+}
+
+void Student::AddApplication(std::string aApplication) throw()
+{
+    m_applications.push_back(aApplication);
+}
+
 Student::~Student()
 {
 }

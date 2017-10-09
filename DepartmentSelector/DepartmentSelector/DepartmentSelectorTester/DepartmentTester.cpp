@@ -240,6 +240,30 @@ namespace DepartmentTester
             Assert::AreEqual(hbb.Id(), dpt.Students()[1]->Id());
         }
 
+        TEST_METHOD(AddStudent)
+        {
+            //config
+            Student paopao("031502442");
+            Student yaoyao("031502522");
+            Department dpt1("D0001");
+            Department dpt2("D0002");
+
+            //test
+            try
+            {
+                dpt1.SetMemberLimit(10);
+                dpt1.AddTempStudent(&paopao);
+                dpt1.AddTempStudent(&yaoyao);
+                dpt1.SelectStudents();
+            }
+            catch (std::exception e)
+            {
+                Assert::IsTrue(false);
+            }
+            Assert::AreEqual(1, (int)paopao.Departments().size());
+            Assert::AreEqual(dpt1.Id(), paopao.Departments().back());
+        }
+
 
 	};
 }

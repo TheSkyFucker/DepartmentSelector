@@ -20,6 +20,7 @@ class Student
     std::vector<TimeSegment> m_freeTimes;           //空闲时间
     std::vector<std::string> m_tags;                //兴趣标签
     std::vector<std::string> m_departments;         //中选部门
+    std::vector<std::string> m_applications;        //部门意愿
 
 public:
 
@@ -107,6 +108,27 @@ public:
     // Parameter: std::string aDepartment
     //************************************
     void AddDepartment(std::string aDepartment) throw();
+
+
+    //************************************
+    // Method:    Applications
+    // FullName:  Student::Applications
+    // Access:    public 
+    // Returns:   std::vector<std::string>
+    // Qualifier: const throw()
+    //************************************
+    std::vector<std::string> Applications() const throw();
+
+
+    //************************************
+    // Method:    AddApplication
+    // FullName:  Student::AddApplication
+    // Access:    public 
+    // Returns:   void
+    // Qualifier: throw()
+    // Parameter: std::string aApplication
+    //************************************
+    void AddApplication(std::string aApplication) throw();
 
     ~Student();
     

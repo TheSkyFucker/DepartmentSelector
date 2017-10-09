@@ -2,11 +2,97 @@
 //
 
 #include "stdafx.h"
+#include "../DepartmentSelector/Student.h"
+#include "../DepartmentSelector/Department.h"
+#include <map>
 
+/************************************************************************/
+/* 全局参数                                                              */
+/************************************************************************/
+std::vector<Department> departments;
+std::vector<Student> students;
+std::map<std::string, Department *> toDepartment;
 
-
-int main()
+/************************************************************************/
+/* 职能：维护下一轮候选                                                    */
+/************************************************************************/
+void CreateDepartmentMap()
 {
+    for (int _department = 0; _department < (int)departments.size(); _department++)
+    {
+        toDepartment[departments[_department].Id()] = &departments[_department];
+    }
+}
+
+/************************************************************************/
+/* 职能：维护下一轮候选                                                    */
+/************************************************************************/
+void SubmitApplication(int round)
+{
+    for (int _student = 0; _student < (int)students.size(); _student++)
+    {
+        Student & student = students[_student];
+        auto applications = student.Applications();
+        if ((int)applications.size() >= round)
+        {
+            auto desDepartment = toDepartment[applications[round - 1]];
+            desDepartment->AddTempStudent(&student);
+        }
+    }
+}
+
+/************************************************************************/
+/* 职能：执行筛选                                                         */
+/************************************************************************/
+void SelectStudents()
+{
+    for (int _department = 0; _department < (int)departments.size(); _department++)
+    {
+        Department &department = departments[_department];
+        department.SelectStudents();
+    }
+}
+
+void DepartmentSelect(int argc, char * argv[])
+{
+    //config
+    const int ROUND = 5; //round
+
+    //read TODO: Read Studen:Department from input_data.txt
+    
+    //创建部门Id索引表
+    CreateDepartmentMap(); 
+
+    //main
+    for (int round = 1; round <= ROUND; round++)
+    {
+        SubmitApplication(round);
+        SelectStudents();
+    }
+    
+}
+
+
+/************************************************************************/
+/* 主代码                                                                */
+/* 职能：分析指令                                                         */
+/************************************************************************/
+int main(int argc, char * argv[])
+{
+    
+    //work
+    try
+    {
+        if (argc < 2) //默认指令，执行匹配
+        {
+            DepartmentSelect(argc, argv);
+        }
+    }
+    catch (const std::exception& e)
+    {
+        puts(e.what());
+    }
+
     return 0;
 }
 

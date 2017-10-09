@@ -23,6 +23,17 @@ class Department
     std::vector<std::string> m_tags;        //兴趣标签
     std::vector<Student *> m_tempStudents;  //部门候选成员
 
+
+    //************************************
+    // Method:    AddStudent
+    // FullName:  Department::AddStudent
+    // Access:    private 
+    // Returns:   void
+    // Qualifier: throw(std::exception)
+    // Parameter: Student * aStudent
+    //************************************
+    void AddStudent(Student * aStudent) throw(std::exception);
+
 public:
 
     //************************************
