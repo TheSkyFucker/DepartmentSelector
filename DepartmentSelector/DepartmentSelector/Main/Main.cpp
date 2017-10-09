@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include "JsonIO.h"
 #include "../DepartmentSelector/Student.h"
 #include "../DepartmentSelector/Department.h"
 #include <map>
@@ -79,9 +80,15 @@ void DepartmentSelect(int argc, char * argv[])
 /************************************************************************/
 int main(int argc, char * argv[])
 {
-    
+    JsonIO myJsonIO;
+    std::vector<Student> students;
+
+
+    //root.Accept(writer);
+    /*std::string str = buffer.GetString();*/
+    //std::cout << buffer.GetString() << std::endl;
     //work
-    try
+    /*try
     {
         if (argc < 2) //默认指令，执行匹配
         {
@@ -91,7 +98,7 @@ int main(int argc, char * argv[])
     catch (const std::exception& e)
     {
         puts(e.what());
-    }
+    }*/
 
     return 0;
 }
