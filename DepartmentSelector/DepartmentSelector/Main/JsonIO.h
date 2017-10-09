@@ -43,6 +43,16 @@ public:
     void Read(std::string filePath) throw(std::exception);
 
 
+    //************************************
+    // Method:    DecodeStudents
+    // FullName:  JsonIO::DecodeStudents
+    // Access:    public 
+    // Returns:   std::vector<Student>
+    // Qualifier: const throw(std::exception)
+    //************************************
     std::vector<Student> DecodeStudents() const throw(std::exception);
+
+
+    std::vector<Department> DecodeDepartments() const throw(std::exception);
 };
 
