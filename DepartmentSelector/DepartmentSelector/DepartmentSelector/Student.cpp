@@ -2,6 +2,20 @@
 #include "Student.h"
 
 
+void Student::DeleteFreeTime(TimeSegment aSegment) throw()
+{
+    std::vector<TimeSegment> result;
+    for (auto m_freeTime : m_freeTimes)
+    {
+        if (aSegment.Include(m_freeTime) == false)
+        {
+            //auto tmpSegs = m_freeTime.Cut()
+            //TODO:
+            //TODO:result.push_back(m_freeTime.Cut(aSegment));
+        }
+    }
+}
+
 Student::Student(std::string id) throw()
 {
     this->m_id = id;
@@ -62,8 +76,10 @@ std::vector<std::string> Student::Departments() const throw()
     return m_departments;
 }
 
-void Student::AddDepartment(std::string aDepartment) throw()
+void Student::AddDepartment(std::string aDepartment, std::vector<TimeSegment> departmentSchedules) throw()
 {
+
+    //check
     for (auto m_department : m_departments)
     {
         if (m_department == aDepartment)
@@ -72,6 +88,12 @@ void Student::AddDepartment(std::string aDepartment) throw()
         }
     }
     m_departments.push_back(aDepartment);
+
+    //delete free time
+    for (auto aSchedule : departmentSchedules)
+    {
+        DeleteFreeTime(aSchedule);
+    }
 }
 
 std::vector<std::string> Student::Applications() const throw()

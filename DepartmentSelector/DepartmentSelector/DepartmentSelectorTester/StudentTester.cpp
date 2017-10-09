@@ -61,15 +61,15 @@ namespace StudentTester
             const std::string DEPARTMENT_1 = "D0001";
             const std::string DEPARTMENT_2 = "D0002";
             Student yaoyao("031502522");
-            yaoyao.AddDepartment(DEPARTMENT_1);
-            yaoyao.AddDepartment(DEPARTMENT_2);
+            yaoyao.AddDepartment(DEPARTMENT_1, std::vector<TimeSegment>());
+            yaoyao.AddDepartment(DEPARTMENT_2, std::vector<TimeSegment>());
 
             //test
             auto departments = yaoyao.Departments();
             Assert::AreEqual(2, (int)departments.size());
             Assert::AreEqual(DEPARTMENT_1, departments[0]);
             Assert::AreEqual(DEPARTMENT_2, departments[1]);
-            yaoyao.AddDepartment(DEPARTMENT_1);
+            yaoyao.AddDepartment(DEPARTMENT_1, std::vector<TimeSegment>());
             Assert::AreEqual(2, (int)departments.size());
         }
 

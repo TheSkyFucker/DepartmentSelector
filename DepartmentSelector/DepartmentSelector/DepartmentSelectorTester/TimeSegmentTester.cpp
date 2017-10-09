@@ -65,5 +65,33 @@ namespace TimeSegmentTester
 
         }
 
+        TEST_METHOD(Cut)
+        {
+            //config
+            const std::string TEST_TIME_SEGMENT_1 = "Mon.16: 00~18: 00";
+            const std::string TEST_TIME_SEGMENT_2 = "Mon.17: 00~20: 00";
+            const std::string TEST_TIME_SEGMENT_3 = "Mon.17: 30~17: 40";
+            const std::string TEST_TIME_SEGMENT_4 = "Mon.13: 30~13: 40";
+            TimeSegment seg1(TEST_TIME_SEGMENT_1);
+            TimeSegment seg2(TEST_TIME_SEGMENT_2);
+            TimeSegment seg3(TEST_TIME_SEGMENT_3);
+            TimeSegment seg4(TEST_TIME_SEGMENT_4);
+
+            //test
+            auto segs1 = seg1.Cut(seg2);
+            Assert::AreEqual(1, (int)segs1.size());
+            Assert::AreEqual(16 * 60, segs1.back().Begin());
+            Assert::AreEqual(17 * 60, segs1.back().End());
+            seg2.Cut(seg3);
+            auto segs2 = seg2.Cut(seg3);
+            Assert::AreEqual(2, (int)segs2.size());
+            Assert::AreEqual(17 * 60, segs2[0].Begin());
+            Assert::AreEqual(17 * 60 + 30, segs2[0].End());
+            Assert::AreEqual(17 * 60 + 40, segs2[1].Begin());
+            Assert::AreEqual(20 * 60, segs2[1].End());
+            auto segs3 = seg1.Cut(seg4);
+            Assert::AreEqual(1, (int)segs3.size());
+        }
+
     };
 }

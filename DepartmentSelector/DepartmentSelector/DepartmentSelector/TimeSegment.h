@@ -10,6 +10,8 @@
 //===============================================================
 
 #pragma once
+#include <vector>
+
 class TimeSegment
 {
     int m_day;      //星期[0..6]， 0代表周天
@@ -28,6 +30,19 @@ public:
     // Parameter: std::string str
     //************************************
     TimeSegment(const std::string str);
+
+
+    //************************************
+    // Method:    TimeSegment
+    // FullName:  TimeSegment::TimeSegment
+    // Access:    public 
+    // Returns:   
+    // Qualifier:
+    // Parameter: int _day
+    // Parameter: int _begin
+    // Parameter: int _end
+    //************************************
+    TimeSegment(int _day, int _begin, int _end);
 
 
     //************************************
@@ -93,6 +108,17 @@ public:
     // Parameter: const TimeSegment & aSegment
     //************************************
     bool operator <(const TimeSegment &aSegment) const throw();
+
+
+    //************************************
+    // Method:    Cut
+    // FullName:  TimeSegment::Cut
+    // Access:    public 
+    // Returns:   void
+    // Qualifier: throw()
+    // Parameter: TimeSegment aSegment
+    //************************************
+    std::vector<TimeSegment> Cut(TimeSegment aSegment) throw();
 
     ~TimeSegment();
 

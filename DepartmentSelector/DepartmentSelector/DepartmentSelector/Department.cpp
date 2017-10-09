@@ -10,7 +10,7 @@ void Department::AddStudent(Student * aStudent) throw(std::exception)
         throw std::exception("Function(Department::AddStudent): 非法使用，人数已达上限");
     }
     m_students.push_back(aStudent);
-    aStudent->AddDepartment(m_id);
+    aStudent->AddDepartment(m_id, m_schedules);
 }
 
 Department::Department(std::string id) throw()
@@ -81,6 +81,7 @@ void Department::SelectStudents() throw(std::exception)
         AddStudent(m_tempStudents.back());
         m_tempStudents.pop_back();
     }
+    m_tempStudents.clear();
 
 }
 

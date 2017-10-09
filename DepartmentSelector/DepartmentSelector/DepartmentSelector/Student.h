@@ -22,6 +22,8 @@ class Student
     std::vector<std::string> m_departments;         //中选部门
     std::vector<std::string> m_applications;        //部门意愿
 
+    void DeleteFreeTime(TimeSegment aSegment) throw();
+
 public:
 
 
@@ -106,8 +108,9 @@ public:
     // Returns:   void
     // Qualifier: throw()
     // Parameter: std::string aDepartment
+    // Parameter: std::vector<TimeSegment>
     //************************************
-    void AddDepartment(std::string aDepartment) throw();
+    void AddDepartment(std::string aDepartment, std::vector<TimeSegment>) throw();
 
 
     //************************************
