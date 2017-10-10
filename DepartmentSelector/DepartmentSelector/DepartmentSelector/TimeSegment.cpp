@@ -110,6 +110,37 @@ std::vector<TimeSegment> TimeSegment::Cut(TimeSegment aSegment) throw()
     return result;
 }
 
+std::string TimeSegment::ToString() throw()
+{
+    //config
+    const std::string DAY_TABLE[] = { "Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat" };
+    
+    //get day
+    std::string result = DAY_TABLE[m_day] + ".";
+    
+    //get begin
+    int beginHour = m_begin / 60;
+    int beginMinute = m_begin % 60;
+    result += (beginHour / 10) + '0';
+    result += (beginHour % 10) + '0';
+    result += ": ";
+    result += (beginMinute / 10) + '0';
+    result += (beginMinute % 10) + '0';
+    
+    //get end
+    result += "~";
+    int endHour = m_end / 60;
+    int endMinute = m_end % 60;
+    result += (endHour / 10) + '0';
+    result += (endHour % 10) + '0';
+    result += ": ";
+    result += (endMinute / 10) + '0';
+    result += (endMinute % 10) + '0';
+
+    //return 
+    return result;
+}
+
 TimeSegment::~TimeSegment()
 {
 }
