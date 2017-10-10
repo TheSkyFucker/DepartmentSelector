@@ -143,8 +143,8 @@ void GenerateData(int argc, char * arfv[])
     int deparmentNumber;
     std::cout << "输入部门数量Dn:[0, 50]" << std::endl;
     std::cin >> deparmentNumber;
-    studentNumber = std::max(0, studentNumber);
-    studentNumber = std::min(50, studentNumber);
+    deparmentNumber = std::max(0, deparmentNumber);
+    deparmentNumber = std::min(50, deparmentNumber);
 
     //generate
     DateGenerator myGenerator;
