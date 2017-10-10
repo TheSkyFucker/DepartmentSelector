@@ -55,7 +55,7 @@ std::vector<TimeSegment> DateGenerator::RandStudentFreeTimes() throw()
     //config
     //srand((unsigned)time(0));
     std::vector<TimeSegment> result;
-    size_t resultSize = 3 + rand() % 8;
+    size_t resultSize = 6 + rand() % 10;
 
     //rand
     std::set<std::string> segSet;
@@ -107,7 +107,7 @@ std::vector<std::string> DateGenerator::RandStudentTags() throw()
     //config
     //srand((unsigned)time(0));
     std::vector<std::string> result;
-    size_t resultSize = 3 + rand() % 8;
+    size_t resultSize = 6 + rand() % 10;
 
     //prework
     std::vector<int> indexs;
@@ -140,7 +140,7 @@ std::vector<std::string> DateGenerator::RandDepartmentTags() throw()
     //config
     //srand((unsigned)time(0));
     std::vector<std::string> result;
-    size_t resultSize = 2 + rand() % 9;
+    size_t resultSize = 2 + rand() % 3;
 
     //prework
     std::vector<int> indexs;
@@ -204,17 +204,17 @@ int DateGenerator::RandDepartmentMemberLimit() throw()
 {
     //config    
     //srand((unsigned)time(0));
-    const int BIG_PERCENT = 20; //大部门（校级部门）比率
+    const int BIG_PERCENT = 30; //大部门（校级部门）比率
 
     //rand 
     int type = rand() % 100;
-    if (type < 20)
+    if (type < BIG_PERCENT)
     {
         return 10 + rand() % 6;
     }
     else
     {
-        return 5 + rand() % 6;
+        return 7 + rand() % 6;
     }
 }
 
