@@ -289,7 +289,7 @@ DateGenerator::DateGenerator()
 
     //init m_days && m_segs
     m_segs = std::vector<std::string>{ "08:20~10:00", "10:20~12:00", "14:00~15:40", "15:50~17:30", "19:00~20:40", "20:50~22:30" };
-    m_days = std::vector<std::string>{ "Sun.", "Mon.", "Tues.", "Wed.", "Thur", "Fri.", "Sat." };
+    m_days = std::vector<std::string>{ "Sun.", "Mon.", "Tues.", "Wed.", "Thur.", "Fri.", "Sat." };
 
 }
 
