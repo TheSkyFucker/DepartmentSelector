@@ -103,11 +103,14 @@ public:
     // Method:    EncodeSelectResult
     // FullName:  JsonIO::EncodeSelectResult
     // Access:    public 
-    // Returns:   std::string
+    // Returns:   rapidjson
     // Qualifier: throw()
-    // Parameter: std::vector<Student> Students
+    // Parameter: std::vector<Student> students
     // Parameter: std::vector<Department> departments
     //************************************
-    std::string EncodeSelectResult(std::vector<Student> students, std::vector<Department> departments) throw();
+    rapidjson::Value EncodeSelectResult(std::vector<Student> students, std::vector<Department> departments) throw();
+
+
+    //std::string EncodeStudents(std::vector<Student> students) throw();
 };
 

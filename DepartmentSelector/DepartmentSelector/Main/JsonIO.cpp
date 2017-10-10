@@ -233,7 +233,7 @@ rapidjson::Value JsonIO::EncodeLuckyDepartments(std::vector<Department> departme
         //get id
         rapidjson::Value id(rapidjson::kStringType);
         id.SetString(department.Id().c_str(), allocator);
-        jsonDepartments.AddMember("department_no", id, allocator);
+        jsonDepartment.AddMember("department_no", id, allocator);
         
         //get member
         rapidjson::Value member(rapidjson::kArrayType);
@@ -243,14 +243,17 @@ rapidjson::Value JsonIO::EncodeLuckyDepartments(std::vector<Department> departme
             id.SetString(student->Id().c_str(), allocator);
             member.PushBack(id, allocator);
         }
-        jsonDepartments.AddMember("member", member, allocator);
+        jsonDepartment.AddMember("member", member, allocator);
+
+        //save
+        jsonDepartments.PushBack(jsonDepartment, allocator);
     }
 
     //return
     return jsonDepartments;
 }
 
-std::string JsonIO::EncodeSelectResult(std::vector<Student> students, std::vector<Department> departments) throw()
+rapidjson::Value JsonIO::EncodeSelectResult(std::vector<Student> students, std::vector<Department> departments) throw()
 {
 
     //config
@@ -293,9 +296,21 @@ std::string JsonIO::EncodeSelectResult(std::vector<Student> students, std::vecto
     resultJson.AddMember("unlucky_departments", jsonUnluckyDepartments, allocator);
 
     //return
-    rapidjson::StringBuffer resultStringBuf;
-    rapidjson::Writer<rapidjson::StringBuffer> writer(resultStringBuf);
-    resultJson.Accept(writer);
-    return resultStringBuf.GetString();
-
+    return resultJson;
 }
+
+/*std::string JsonIO::EncodeStudents(std::vector<Student> students) throw()
+{
+    //config
+    rapidjson::Value resultJson(rapidjson::kArrayType);
+    rapidjson::Document::AllocatorType & allocator = m_doc.GetAllocator();
+
+    //encode student_no
+    
+    rapidjson::Value id(rapidjson::kStringType);
+    id.SetString(.Id().c_str(), allocator);
+    for (auto student : students)
+    {
+    }
+    return std::string();
+}*/

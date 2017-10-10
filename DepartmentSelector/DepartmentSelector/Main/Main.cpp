@@ -35,15 +35,16 @@ void ReadJsonData()
 /************************************************************************/
 /* 职能：写入输出数据                                                      */
 /************************************************************************/
-void WriteJsonData()
+void WriteJsonData(rapidjson::Value jsonData, std::string filePath)
 {
     //config
-    const std::string OUTPUT_FILE_PATH = "output_data.txt";
-    freopen(OUTPUT_FILE_PATH.c_str(), "w", stdout);
+    freopen(filePath.c_str(), "w", stdout);
 
     //write
-    std::string data = myJsonIO.EncodeSelectResult(students, departments);
-    std::cout << data << std::endl;
+    rapidjson::StringBuffer resultStringBuf;
+    rapidjson::Writer<rapidjson::StringBuffer> writer(resultStringBuf);
+    jsonData.Accept(writer);
+    std::cout << resultStringBuf.GetString() << std::endl;
     
     //go back
     freopen("CON", "w", stdout);
@@ -100,6 +101,7 @@ void DepartmentSelect(int argc, char * argv[])
 {
     //config
     const int ROUND = 5; //round
+    const std::string FILE_PATH = "output_data.txt";
 
     //read
     ReadJsonData();
@@ -115,7 +117,7 @@ void DepartmentSelect(int argc, char * argv[])
     }
 
     //output
-    WriteJsonData();
+    WriteJsonData(myJsonIO.EncodeSelectResult(students, departments), FILE_PATH);
     
 }
 
@@ -126,8 +128,18 @@ void DepartmentSelect(int argc, char * argv[])
 /************************************************************************/
 int main(int argc, char * argv[])
 {
+    students.push_back(Student("031502442"));
+    students.push_back(Student("031502522"));
+    departments.push_back(Department("D0001"));
+    departments.back().AddTempStudent(&students[0]);
+    departments.back().AddTempStudent(&students[1]);
+    departments.back().SetMemberLimit(10);
+    departments.back().SelectStudents();
+    WriteJsonData(myJsonIO.EncodeSelectResult(students, departments), "output_data.txt");
+//    DateGenerator gen;
 
-    DateGenerator gen;
+    //Student student = gen.RandStudent(std::vector<Department>());
+
 
     return 0;
 

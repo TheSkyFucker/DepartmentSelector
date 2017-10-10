@@ -1,0 +1,1 @@
+{"unlucky_students":[],"admitted":[{"department_no":"D0001","member":["031502522","031502442"]}],"unlucky_departments":[]}
