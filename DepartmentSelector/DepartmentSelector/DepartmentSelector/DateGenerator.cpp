@@ -149,7 +149,7 @@ std::vector<std::string> DateGenerator::RandDepartmentTags() throw()
 }
 
 
-std::vector<std::string> DateGenerator::RandApplications(Student &aStudent, std::vector<Department> &departments) throw()
+std::vector<std::string> DateGenerator::RandStudentApplications(Student &aStudent, std::vector<Department> &departments) throw()
 {
     //config
     srand((unsigned)time(0));
@@ -219,6 +219,36 @@ Department DateGenerator::RandDepartment() throw()
 
     //rand memberlimit
     result.SetMemberLimit(RandDepartmentMemberLimit());
+
+    //return
+    return result;
+}
+
+Student DateGenerator::RandStudent(std::vector<Department> departments) throw()
+{
+    //config
+    Student result(RandStudentId());
+
+    //rand tags
+    auto tags = RandStudentTags();
+    for (auto tag : tags)
+    {
+        result.AddTag(tag);
+    }
+
+    //rand freetimes
+    auto freeTimes = RandStudentFreeTimes();
+    for (auto freeTime : RandStudentFreeTimes())
+    {
+        result.AddFreeTime(freeTime);
+    }
+
+    //rand applications
+    auto applications = RandStudentApplications(result, departments);
+    for (auto application : applications)
+    {
+        result.AddApplication(application);
+    }
 
     //return
     return result;

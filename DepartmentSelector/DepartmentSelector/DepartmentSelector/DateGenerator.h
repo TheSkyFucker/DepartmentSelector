@@ -87,15 +87,15 @@ public:
 
     
     //************************************
-    // Method:    RandApplications
-    // FullName:  DateGenerator::RandApplications
+    // Method:    RandStudentApplications
+    // FullName:  DateGenerator::RandStudentApplications
     // Access:    public 
     // Returns:   std::vector<std::string>
     // Qualifier: throw()
     // Parameter: Student & aStudent
     // Parameter: std::vector<Department> & departments
     //************************************
-    std::vector<std::string> RandApplications(Student &aStudent, std::vector<Department> &departments) throw();
+    std::vector<std::string> RandStudentApplications(Student &aStudent, std::vector<Department> &departments) throw();
 
 
     //************************************
@@ -126,9 +126,7 @@ public:
     // Qualifier: throw()
     // Parameter: std::vector<Department> departments
     //************************************
-    //Student RandStudent(std::vector<Department> departments) throw();
-
-
+    Student RandStudent(std::vector<Department> departments) throw();
 
 
     DateGenerator();
