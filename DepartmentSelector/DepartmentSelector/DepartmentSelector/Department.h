@@ -37,6 +37,17 @@ class Department
 public:
 
     //************************************
+    // Method:    IsConflict
+    // FullName:  Department::IsConflict
+    // Access:    public 
+    // Returns:   bool
+    // Qualifier: const throw()
+    // Parameter: Student aStudent
+    //************************************
+    bool IsConflict(Student aStudent) const throw();
+
+
+    //************************************
     // Method:    Department
     // FullName:  Department::Department
     // Access:    public 

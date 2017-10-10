@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "JsonIO.h"
+#include "../DepartmentSelector/DateGenerator.h"
 #include "../DepartmentSelector/Student.h"
 #include "../DepartmentSelector/Department.h"
 #include <map>
@@ -125,6 +126,11 @@ void DepartmentSelect(int argc, char * argv[])
 /************************************************************************/
 int main(int argc, char * argv[])
 {
+
+    DateGenerator gen;
+
+    return 0;
+
 
     //work
     try

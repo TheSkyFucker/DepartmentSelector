@@ -13,6 +13,26 @@ void Department::AddStudent(Student * aStudent) throw(std::exception)
     aStudent->AddDepartment(m_id, m_schedules);
 }
 
+bool Department::IsConflict(Student aStudent) const throw()
+{
+    for (auto schedule : m_schedules)
+    {
+        bool ok = false;
+        for (auto freeTime : aStudent.FreeTimes())
+        {
+            if (freeTime.Include(schedule))
+            {
+                ok = true;
+            }
+        }
+        if (ok == false)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 Department::Department(std::string id) throw()
 {
     m_id = id;
@@ -29,26 +49,12 @@ void Department::DeleteConflictStudents() throw()
     for (int _student = m_tempStudents.size() - 1; _student >= 0; _student --)
     {
         Student * student = m_tempStudents[_student];
-        for (auto schedule : m_schedules)
+        if (IsConflict(*student))
         {
-            bool ok = false;
-            for (auto freeTime : student->FreeTimes())
-            {
-                if (freeTime.Include(schedule))
-                {
-                    ok = true;
-                    break;
-                }
-            }
-            if (ok == false)
-            {
-                std::swap(m_tempStudents[_student], m_tempStudents.back());
-                m_tempStudents.pop_back();
-                break;
-            }
+            std::swap(m_tempStudents[_student], m_tempStudents.back());
+            m_tempStudents.pop_back();
         }
     }
-    return;
 }
 
 void Department::SelectStudents() throw(std::exception)
