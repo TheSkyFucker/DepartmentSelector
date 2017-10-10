@@ -122,5 +122,14 @@ public:
     rapidjson::Value EncodeStudents(std::vector<Student> students) throw();
 
 
+    //************************************
+    // Method:    EncodeDepartments
+    // FullName:  JsonIO::EncodeDepartments
+    // Access:    public 
+    // Returns:   rapidjson
+    // Qualifier: throw()
+    // Parameter: std::vector<Department> departments
+    //************************************
+    rapidjson::Value EncodeDepartments(std::vector<Department> departments) throw();
 };
 

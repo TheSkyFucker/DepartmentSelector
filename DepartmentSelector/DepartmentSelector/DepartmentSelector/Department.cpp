@@ -13,6 +13,11 @@ void Department::AddStudent(Student * aStudent) throw(std::exception)
     aStudent->AddDepartment(m_id, m_schedules);
 }
 
+int Department::MemberLimit() const throw()
+{
+    return m_memberLimit;
+}
+
 bool Department::IsConflict(Student aStudent) const throw()
 {
     for (auto schedule : m_schedules)
