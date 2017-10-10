@@ -311,7 +311,7 @@ rapidjson::Value JsonIO::EncodeSelectResult(std::vector<Student> students, std::
         }
     }
     auto jsonUnluckyStudents = EncodeUnluckyStudents(unluckyStudents);    
-    resultJson.AddMember("unlucky_students", jsonUnluckyStudents, allocator);
+    resultJson.AddMember("unlucky_student", jsonUnluckyStudents, allocator);
     
     //get (un)luckDepartments
     std::vector<Department> unluckyDepartments;
@@ -334,7 +334,7 @@ rapidjson::Value JsonIO::EncodeSelectResult(std::vector<Student> students, std::
 
     //encode unlucky_departments
     auto jsonUnluckyDepartments = EncodeUnluckyDepartments(unluckyDepartments);
-    resultJson.AddMember("unlucky_departments", jsonUnluckyDepartments, allocator);
+    resultJson.AddMember("unlucky_department", jsonUnluckyDepartments, allocator);
 
     //return
     return resultJson;
