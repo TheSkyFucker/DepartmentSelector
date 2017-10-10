@@ -3,6 +3,8 @@
 
 #include "stdafx.h"
 #include "JsonIO.h"
+#include "iostream"
+#include "algorithm"
 #include "../DepartmentSelector/DateGenerator.h"
 #include "../DepartmentSelector/Student.h"
 #include "../DepartmentSelector/Department.h"
@@ -35,7 +37,7 @@ void ReadJsonData()
 /************************************************************************/
 /* 职能：写入输出数据                                                      */
 /************************************************************************/
-void WriteJsonData(rapidjson::Value jsonData, std::string filePath)
+void WriteJsonData(const rapidjson::Value jsonData, std::string filePath)
 {
     //config
     freopen(filePath.c_str(), "w", stdout);
@@ -44,7 +46,7 @@ void WriteJsonData(rapidjson::Value jsonData, std::string filePath)
     rapidjson::StringBuffer resultStringBuf;
     rapidjson::Writer<rapidjson::StringBuffer> writer(resultStringBuf);
     jsonData.Accept(writer);
-    std::cout << resultStringBuf.GetString() << std::endl;
+    puts(myJsonIO.ChangeFormat(resultStringBuf.GetString()).c_str());
     
     //go back
     freopen("CON", "w", stdout);
@@ -121,6 +123,54 @@ void DepartmentSelect(int argc, char * argv[])
     
 }
 
+/************************************************************************/
+/* 职能： 生成数据                                                        */
+/************************************************************************/
+void GenerateData(int argc, char * arfv[])
+{
+
+    //config
+    std::string filePath = "input_data.txt";
+
+    //get studentNumber
+    int studentNumber;
+    std::cout << "输入学生数量Sn[0, 500]:" << std::endl;
+    std::cin >> studentNumber;
+    studentNumber = std::max(0, studentNumber);
+    studentNumber = std::min(500, studentNumber);
+            
+    //get departmentNumber
+    int deparmentNumber;
+    std::cout << "输入部门数量Dn:[0, 50]" << std::endl;
+    std::cin >> deparmentNumber;
+    studentNumber = std::max(0, studentNumber);
+    studentNumber = std::min(50, studentNumber);
+
+    //generate
+    DateGenerator myGenerator;
+    for (int i = 0; i < deparmentNumber; i++)
+    {
+        departments.push_back(myGenerator.RandDepartment());
+    }
+    for (int i = 0; i < studentNumber; i++)
+    {
+        students.push_back(myGenerator.RandStudent(departments));
+    }
+
+    //encode
+    rapidjson::Value root(rapidjson::kObjectType);
+    auto jsonStudents = myJsonIO.EncodeStudents(students);
+    auto jsonDepartments = myJsonIO.EncodeDepartments(departments);
+    root.AddMember("students", jsonStudents, myJsonIO.m_doc.GetAllocator());
+    root.AddMember("departments", jsonDepartments, myJsonIO.m_doc.GetAllocator());
+    rapidjson::StringBuffer resultStringBuf;
+    rapidjson::Writer<rapidjson::StringBuffer> writer(resultStringBuf);
+    root.Accept(writer);
+    freopen(filePath.c_str(), "w", stdout);
+    puts(myJsonIO.ChangeFormat(resultStringBuf.GetString()).c_str());
+    freopen("CON", "w", stdout);
+
+}
 
 /************************************************************************/
 /* 主代码                                                                */
@@ -128,21 +178,6 @@ void DepartmentSelect(int argc, char * argv[])
 /************************************************************************/
 int main(int argc, char * argv[])
 {
-    students.push_back(Student("031502442"));
-    students.push_back(Student("031502522"));
-    departments.push_back(Department("D0001"));
-    departments.back().AddTempStudent(&students[0]);
-    departments.back().AddTempStudent(&students[1]);
-    departments.back().SetMemberLimit(10);
-    departments.back().SelectStudents();
-    WriteJsonData(myJsonIO.EncodeSelectResult(students, departments), "output_data.txt");
-//    DateGenerator gen;
-
-    //Student student = gen.RandStudent(std::vector<Department>());
-
-
-    return 0;
-
 
     //work
     try
@@ -150,6 +185,10 @@ int main(int argc, char * argv[])
         if (argc < 2) //默认指令，执行匹配
         {
             DepartmentSelect(argc, argv);
+        }
+        else if (strcmp(argv[1], "-g") == 0)
+        {
+            GenerateData(argc, argv);
         }
     }
     catch (const std::exception& e)

@@ -9,7 +9,7 @@
 std::string DateGenerator::RandStudentId() throw()
 {
     //config
-    srand((unsigned)time(0));
+    //srand((unsigned)time(0));
     std::string result;
 
     //院系：2位 [00, 99]
@@ -38,7 +38,7 @@ std::string DateGenerator::RandStudentId() throw()
 std::string DateGenerator::RandDepartmentId() throw()
 {
     //config
-    srand((unsigned)time(0));
+    //srand((unsigned)time(0));
     std::string result = "D";
     
     //编号： 3位 [0, 999]
@@ -53,7 +53,7 @@ std::string DateGenerator::RandDepartmentId() throw()
 std::vector<TimeSegment> DateGenerator::RandStudentFreeTimes() throw()
 {
     //config
-    srand((unsigned)time(0));
+    //srand((unsigned)time(0));
     std::vector<TimeSegment> result;
     size_t resultSize = 3 + rand() % 8;
 
@@ -64,7 +64,7 @@ std::vector<TimeSegment> DateGenerator::RandStudentFreeTimes() throw()
         size_t _day = rand() % m_days.size();
         size_t _seg = rand() % m_segs.size();
         std::string tempSeg = m_days[_day] + m_segs[_seg];
-        if (segSet.find(tempSeg) != segSet.end())
+        if (segSet.find(tempSeg) == segSet.end())
         {
             segSet.insert(tempSeg);
             result.push_back(TimeSegment(tempSeg));
@@ -78,7 +78,7 @@ std::vector<TimeSegment> DateGenerator::RandStudentFreeTimes() throw()
 std::vector<TimeSegment> DateGenerator::RandDepartmentSchedules() throw()
 {
     //config
-    srand((unsigned)time(0));
+    //srand((unsigned)time(0));
     std::vector<TimeSegment> result;
     size_t resultSize = 2 + rand() % 3;
 
@@ -89,7 +89,7 @@ std::vector<TimeSegment> DateGenerator::RandDepartmentSchedules() throw()
         size_t _day = rand() % m_days.size();
         size_t _seg = rand() % m_segs.size();
         std::string tempSeg = m_days[_day] + m_segs[_seg];
-        if (segSet.find(tempSeg) != segSet.end())
+        if (segSet.find(tempSeg) == segSet.end())
         {
             segSet.insert(tempSeg);
             TimeSegment aTempSeg(tempSeg);
@@ -105,20 +105,30 @@ std::vector<TimeSegment> DateGenerator::RandDepartmentSchedules() throw()
 std::vector<std::string> DateGenerator::RandStudentTags() throw()
 {
     //config
-    srand((unsigned)time(0));
+    //srand((unsigned)time(0));
     std::vector<std::string> result;
     size_t resultSize = 3 + rand() % 8;
+
+    //prework
+    std::vector<int> indexs;
+    for (size_t i = 0; i < m_tags.size(); i++)
+    {
+        indexs.push_back(i);
+    }
 
     //rand
     std::set<std::string> tagSet;
     while (result.size() < resultSize)
     {
-        size_t _tag = rand() % m_tags.size();
-        if (tagSet.find(m_tags[_tag]) != tagSet.end())
+        size_t _index = rand() % indexs.size();
+        int index = indexs[_index];
+        if (tagSet.find(m_tags[index]) == tagSet.end())
         {
-            tagSet.insert(m_tags[_tag]);
-            result.push_back(m_tags[_tag]);
+            tagSet.insert(m_tags[index]);
+            result.push_back(m_tags[index]);
         }
+        std::swap(indexs[_index], indexs.back());
+        indexs.pop_back();
     }
     
     //return
@@ -128,20 +138,30 @@ std::vector<std::string> DateGenerator::RandStudentTags() throw()
 std::vector<std::string> DateGenerator::RandDepartmentTags() throw()
 {
     //config
-    srand((unsigned)time(0));
+    //srand((unsigned)time(0));
     std::vector<std::string> result;
     size_t resultSize = 2 + rand() % 9;
+
+    //prework
+    std::vector<int> indexs;
+    for (size_t i = 0; i < m_tags.size(); i++)
+    {
+        indexs.push_back(i);
+    }
 
     //rand
     std::set<std::string> tagSet;
     while (result.size() < resultSize)
     {
-        size_t _tag = rand() % m_tags.size();
-        if (tagSet.find(m_tags[_tag]) != tagSet.end())
+        size_t _index = rand() % indexs.size();
+        int index = indexs[_index];
+        if (tagSet.find(m_tags[index]) == tagSet.end())
         {
-            tagSet.insert(m_tags[_tag]);
-            result.push_back(m_tags[_tag]);
+            tagSet.insert(m_tags[index]);
+            result.push_back(m_tags[index]);
         }
+        std::swap(indexs[_index], indexs.back());
+        indexs.pop_back();
     }
 
     //return
@@ -152,7 +172,7 @@ std::vector<std::string> DateGenerator::RandDepartmentTags() throw()
 std::vector<std::string> DateGenerator::RandStudentApplications(Student &aStudent, std::vector<Department> &departments) throw()
 {
     //config
-    srand((unsigned)time(0));
+    //srand((unsigned)time(0));
     std::vector<std::string> result;
     std::vector<std::pair<double, std::string> > dptList;
     size_t resultSize = 3 + rand() % 3;
@@ -183,7 +203,7 @@ std::vector<std::string> DateGenerator::RandStudentApplications(Student &aStuden
 int DateGenerator::RandDepartmentMemberLimit() throw()
 {
     //config    
-    srand((unsigned)time(0));
+    //srand((unsigned)time(0));
     const int BIG_PERCENT = 20; //大部门（校级部门）比率
 
     //rand 
@@ -237,7 +257,7 @@ Student DateGenerator::RandStudent(std::vector<Department> departments) throw()
     }
 
     //rand freetimes
-    auto freeTimes = RandStudentFreeTimes();
+
     for (auto freeTime : RandStudentFreeTimes())
     {
         result.AddFreeTime(freeTime);
@@ -257,7 +277,8 @@ Student DateGenerator::RandStudent(std::vector<Department> departments) throw()
 
 DateGenerator::DateGenerator()
 {
-    
+    srand((unsigned)time(0));
+
     //init m_tags
     m_tags = std::vector<std::string>{
         "film", "English", "reading", "music", "dance", "basketball", "chess",
@@ -267,8 +288,8 @@ DateGenerator::DateGenerator()
     };
 
     //init m_days && m_segs
-    m_segs = std::vector<std::string>{ "8: 20~10: 00", "10: 20~12: 00", "14: 00~15: 40", "15: 50~17:30", "19: 00~20: 40", "20: 50~22:30" };
-    m_days = std::vector<std::string>{ "Sun.", "Mon.", "Tues", "Wed", "Fri", "Sat" };
+    m_segs = std::vector<std::string>{ "08:20~10:00", "10:20~12:00", "14:00~15:40", "15:50~17:30", "19:00~20:40", "20:50~22:30" };
+    m_days = std::vector<std::string>{ "Sun.", "Mon.", "Tues.", "Wed.", "Thur.", "Fri.", "Sat." };
 
 }
 

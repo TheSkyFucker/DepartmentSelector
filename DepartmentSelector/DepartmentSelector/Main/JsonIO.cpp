@@ -2,6 +2,47 @@
 #include "JsonIO.h"
 
 
+std::string JsonIO::ChangeFormat(std::string aJson) throw()
+{
+    //config
+    std::string result;
+
+    //change
+    int tabs = 0;
+    for (size_t i = 0; i < aJson.size(); i++)
+    {
+        //check tabs
+        if (aJson[i] == '[' || aJson[i] == '{')
+        {
+            tabs += 4;
+        }
+        else if (aJson[i] == ']' || aJson[i] == '}')
+        {
+            tabs -= 4;
+        }
+        
+        //add tabs
+        if (aJson[i] == '}' || aJson[i] == ']')
+        {
+            result += "\n";
+            for (int j = 0; j < tabs; j++) result += " ";
+            result += aJson[i];
+        }
+        else
+        {
+            result += aJson[i];
+            if (aJson[i] == '[' || aJson[i] == '{' || aJson[i] == ',')
+            {
+                result += "\n";
+                for (int j = 0; j < tabs; j++) result += " ";
+            }
+        }
+    }
+
+    //return 
+    return result;
+}
+
 JsonIO::JsonIO()
 {
 }
@@ -302,11 +343,10 @@ rapidjson::Value JsonIO::EncodeSelectResult(std::vector<Student> students, std::
 rapidjson::Value JsonIO::EncodeStudents(std::vector<Student> students) throw()
 {
     //config
-    rapidjson::Value resultJson(rapidjson::kArrayType);
     rapidjson::Document::AllocatorType & allocator = m_doc.GetAllocator();
 
     //encode
-    rapidjson::Value jsonStudents(rapidjson::kObjectType);
+    rapidjson::Value jsonStudents(rapidjson::kArrayType);
     for (auto student : students)
     {
         rapidjson::Value jsonStudent(rapidjson::kObjectType);
@@ -357,11 +397,10 @@ rapidjson::Value JsonIO::EncodeStudents(std::vector<Student> students) throw()
 rapidjson::Value JsonIO::EncodeDepartments(std::vector<Department> departments) throw()
 {
     //config
-    rapidjson::Value resultJson(rapidjson::kArrayType);
     rapidjson::Document::AllocatorType & allocator = m_doc.GetAllocator();
 
     //encode
-    rapidjson::Value jsonDepartments(rapidjson::kObjectType);
+    rapidjson::Value jsonDepartments(rapidjson::kArrayType);
     for (auto department : departments)
     {
         rapidjson::Value jsonDepartment(rapidjson::kObjectType);

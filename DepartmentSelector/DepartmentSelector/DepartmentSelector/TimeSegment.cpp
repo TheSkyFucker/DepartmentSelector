@@ -14,7 +14,7 @@ TimeSegment::TimeSegment(const std::string str)     //e.g Mon.16: 00~18: 00
     //read
     std::pair<int, int> begin;
     std::pair<int, int> end;
-    sscanf_s(tmp.c_str(), "%d: %d~%d: %d", &begin.first, &begin.second, &end.first, &end.second);
+    sscanf_s(tmp.c_str(), "%d:%d~%d:%d", &begin.first, &begin.second, &end.first, &end.second);
 
     //save
     for (int day = 0; day < 7; day++)
@@ -113,8 +113,8 @@ std::vector<TimeSegment> TimeSegment::Cut(TimeSegment aSegment) throw()
 std::string TimeSegment::ToString() throw()
 {
     //config
-    const std::string DAY_TABLE[] = { "Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat" };
-    
+    const std::string DAY_TABLE[] = { "Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat" };
+
     //get day
     std::string result = DAY_TABLE[m_day] + ".";
     
@@ -123,7 +123,7 @@ std::string TimeSegment::ToString() throw()
     int beginMinute = m_begin % 60;
     result += (beginHour / 10) + '0';
     result += (beginHour % 10) + '0';
-    result += ": ";
+    result += ":";
     result += (beginMinute / 10) + '0';
     result += (beginMinute % 10) + '0';
     
@@ -133,7 +133,7 @@ std::string TimeSegment::ToString() throw()
     int endMinute = m_end % 60;
     result += (endHour / 10) + '0';
     result += (endHour % 10) + '0';
-    result += ": ";
+    result += ":";
     result += (endMinute / 10) + '0';
     result += (endMinute % 10) + '0';
 

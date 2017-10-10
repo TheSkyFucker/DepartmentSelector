@@ -1,1 +1,36 @@
-{"unlucky_students":[],"admitted":[{"department_no":"D0001","member":["031502522","031502442"]}],"unlucky_departments":[]}
+{
+    "unlucky_students":[
+        "691606019",
+        "471773011",
+        "151745262",
+        "401698674",
+        "231879405",
+        "321799823",
+        "071707139",
+        "711707154"
+    ],
+    "admitted":[
+        {
+            "department_no":"D617",
+            "member":[
+                "121604104"
+            ]
+        },
+        {
+            "department_no":"D332",
+            "member":[
+                "921707584"
+            ]
+        }
+    ],
+    "unlucky_departments":[
+        "D588",
+        "D106",
+        "D293",
+        "D200",
+        "D308",
+        "D106",
+        "D319",
+        "D870"
+    ]
+}

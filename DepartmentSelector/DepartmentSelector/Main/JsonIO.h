@@ -28,9 +28,6 @@ class JsonIO
 {
     
     std::string m_inputJson; //输入数据缓存
-    rapidjson::Document m_doc;
-
-
 
     //************************************
     // Method:    EncodeUnluckyStudents
@@ -65,8 +62,9 @@ class JsonIO
     rapidjson::Value EncodeLuckyDepartments(std::vector<Department> departments) throw();
 
 public:
-    JsonIO();
-    ~JsonIO();
+
+    rapidjson::Document m_doc;
+
 
     //************************************
     // Method:    Read
@@ -131,5 +129,22 @@ public:
     // Parameter: std::vector<Department> departments
     //************************************
     rapidjson::Value EncodeDepartments(std::vector<Department> departments) throw();
+
+
+    //************************************
+    // Method:    ChangeFormat
+    // FullName:  JsonIO::ChangeFormat
+    // Access:    public 
+    // Returns:   std::string
+    // Qualifier: throw()
+    // Parameter: std::string
+    //************************************
+    std::string ChangeFormat(std::string aJson) throw();
+
+
+    JsonIO();
+    ~JsonIO();
+
+
 };
 
