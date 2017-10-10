@@ -140,7 +140,7 @@ std::vector<std::string> DateGenerator::RandDepartmentTags() throw()
     //config
     //srand((unsigned)time(0));
     std::vector<std::string> result;
-    size_t resultSize = 2 + rand() % 3;
+    size_t resultSize = 4 + rand() % 7;
 
     //prework
     std::vector<int> indexs;
@@ -203,7 +203,6 @@ std::vector<std::string> DateGenerator::RandStudentApplications(Student &aStuden
 int DateGenerator::RandDepartmentMemberLimit() throw()
 {
     //config    
-    //srand((unsigned)time(0));
     const int BIG_PERCENT = 30; //大部门（校级部门）比率
 
     //rand 
@@ -283,8 +282,7 @@ DateGenerator::DateGenerator()
     m_tags = std::vector<std::string>{
         "film", "English", "reading", "music", "dance", "basketball", "chess",
         "programming", "drawing", "writing", "football", "coding", "running",
-        "moning", "testing", "talking", "food", "laughing", "unknow", "playing",
-        "buy", "sold", "fight", "love"
+        "moning", "testing", "talking", "food"
     };
 
     //init m_days && m_segs

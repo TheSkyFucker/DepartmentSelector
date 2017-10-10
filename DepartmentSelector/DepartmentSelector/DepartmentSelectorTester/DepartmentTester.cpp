@@ -179,7 +179,7 @@ namespace DepartmentTester
             hbb.AddTag("aaa");
             hbb.AddTag("bbb");
             hbb.AddDepartment("D23333", std::vector<TimeSegment>());
-            paopao.AddDepartment("D25555", std::vector<TimeSegment>());
+            hbb.AddDepartment("D25555", std::vector<TimeSegment>());
 
             //config department
             Department dpt("D1212");
@@ -187,9 +187,9 @@ namespace DepartmentTester
             dpt.AddTag("bbb");
 
             //test
-            dpt.AddTempStudent(&yaoyao);
-            dpt.AddTempStudent(&hbb);
             dpt.AddTempStudent(&paopao);
+            dpt.AddTempStudent(&hbb);
+            dpt.AddTempStudent(&yaoyao);
             dpt.SortTempStudents();
             std::vector<Student *> temp = dpt.TempStudents();
             Assert::AreEqual(paopao.Id(), temp[0]->Id());
@@ -210,7 +210,7 @@ namespace DepartmentTester
 
             Student yaoyao("031502522");
             yaoyao.AddTag("aaa");
-            yaoyao.AddTag("ccc");
+            yaoyao.AddTag("bbb");
 
             Student hbb("?????????");
             hbb.AddTag("aaa");
