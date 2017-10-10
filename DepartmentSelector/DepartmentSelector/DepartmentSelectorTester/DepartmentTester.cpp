@@ -49,8 +49,8 @@ namespace DepartmentTester
         TEST_METHOD(AddSchedule)
         {
             //config
-            const TimeSegment SCHEDULE_1("Sat.14: 00~16: 00");
-            const TimeSegment SCHEDULE_2("Sat.15: 00~18: 00");
+            const TimeSegment SCHEDULE_1("Sat.14:00~16:00");
+            const TimeSegment SCHEDULE_2("Sat.15:00~18:00");
             
             //test
             Department dpt("D0001");
@@ -64,9 +64,9 @@ namespace DepartmentTester
         TEST_METHOD(DeleteConflictStudents)
         {
             //config
-            const TimeSegment PAOPAO_FREE_TIME("Sat.14: 00~16: 00");
-            const TimeSegment YAOYAO_FREE_TIME("Sat.16: 00~18: 00");
-            const TimeSegment SCHEDULE("Sat.16: 00~17: 00");
+            const TimeSegment PAOPAO_FREE_TIME("Sat.14:00~16:00");
+            const TimeSegment YAOYAO_FREE_TIME("Sat.16:00~18:00");
+            const TimeSegment SCHEDULE("Sat.16: 00~17:00");
             Student paopao("031502442");
             Student yaoyao("031502522");
             paopao.AddFreeTime(PAOPAO_FREE_TIME);
@@ -85,9 +85,9 @@ namespace DepartmentTester
         TEST_METHOD(SelectStudents_Logic1)
         {
             //config
-            const TimeSegment PAOPAO_FREE_TIME("Sat.14: 00~16: 00");
-            const TimeSegment YAOYAO_FREE_TIME("Sat.16: 00~18: 00");
-            const TimeSegment SCHEDULE("Sat.16: 00~17: 00");
+            const TimeSegment PAOPAO_FREE_TIME("Sat.14:00~16:00");
+            const TimeSegment YAOYAO_FREE_TIME("Sat.16:00~18:00");
+            const TimeSegment SCHEDULE("Sat.16: 00~17:00");
             Student paopao("031502442");
             Student yaoyao("031502522");
             paopao.AddFreeTime(PAOPAO_FREE_TIME);
