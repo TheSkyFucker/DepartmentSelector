@@ -37,6 +37,27 @@ class Department
 public:
 
     //************************************
+    // Method:    MemberLimit
+    // FullName:  Department::MemberLimit
+    // Access:    public 
+    // Returns:   int
+    // Qualifier: const throw()
+    //************************************
+    int MemberLimit() const throw();
+
+
+    //************************************
+    // Method:    IsConflict
+    // FullName:  Department::IsConflict
+    // Access:    public 
+    // Returns:   bool
+    // Qualifier: const throw()
+    // Parameter: Student aStudent
+    //************************************
+    bool IsConflict(Student aStudent) const throw();
+
+
+    //************************************
     // Method:    Department
     // FullName:  Department::Department
     // Access:    public 

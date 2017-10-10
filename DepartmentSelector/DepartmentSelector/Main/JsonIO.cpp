@@ -233,7 +233,7 @@ rapidjson::Value JsonIO::EncodeLuckyDepartments(std::vector<Department> departme
         //get id
         rapidjson::Value id(rapidjson::kStringType);
         id.SetString(department.Id().c_str(), allocator);
-        jsonDepartments.AddMember("department_no", id, allocator);
+        jsonDepartment.AddMember("department_no", id, allocator);
         
         //get member
         rapidjson::Value member(rapidjson::kArrayType);
@@ -243,14 +243,17 @@ rapidjson::Value JsonIO::EncodeLuckyDepartments(std::vector<Department> departme
             id.SetString(student->Id().c_str(), allocator);
             member.PushBack(id, allocator);
         }
-        jsonDepartments.AddMember("member", member, allocator);
+        jsonDepartment.AddMember("member", member, allocator);
+
+        //save
+        jsonDepartments.PushBack(jsonDepartment, allocator);
     }
 
     //return
     return jsonDepartments;
 }
 
-std::string JsonIO::EncodeSelectResult(std::vector<Student> students, std::vector<Department> departments) throw()
+rapidjson::Value JsonIO::EncodeSelectResult(std::vector<Student> students, std::vector<Department> departments) throw()
 {
 
     //config
@@ -293,9 +296,111 @@ std::string JsonIO::EncodeSelectResult(std::vector<Student> students, std::vecto
     resultJson.AddMember("unlucky_departments", jsonUnluckyDepartments, allocator);
 
     //return
-    rapidjson::StringBuffer resultStringBuf;
-    rapidjson::Writer<rapidjson::StringBuffer> writer(resultStringBuf);
-    resultJson.Accept(writer);
-    return resultStringBuf.GetString();
+    return resultJson;
+}
+
+rapidjson::Value JsonIO::EncodeStudents(std::vector<Student> students) throw()
+{
+    //config
+    rapidjson::Value resultJson(rapidjson::kArrayType);
+    rapidjson::Document::AllocatorType & allocator = m_doc.GetAllocator();
+
+    //encode
+    rapidjson::Value jsonStudents(rapidjson::kObjectType);
+    for (auto student : students)
+    {
+        rapidjson::Value jsonStudent(rapidjson::kObjectType);
+        
+        //encode student_no
+        rapidjson::Value id(rapidjson::kStringType);
+        id.SetString(student.Id().c_str(), allocator);
+        jsonStudent.AddMember("student_no", id, allocator);
+        
+        //encode free_time
+        rapidjson::Value jsonFreeTimes(rapidjson::kArrayType);
+        for (auto aFreeTime : student.FreeTimes())
+        {
+            rapidjson::Value jsonTime(rapidjson::kStringType);
+            jsonTime.SetString(aFreeTime.ToString().c_str(), allocator);
+            jsonFreeTimes.PushBack(jsonTime, allocator);
+        }
+        jsonStudent.AddMember("free_time", jsonFreeTimes, allocator);
+
+        //encode tags
+        rapidjson::Value jsonTags(rapidjson::kArrayType);
+        for (auto aTag : student.Tags())
+        {
+            rapidjson::Value jsonTag(rapidjson::kStringType);
+            jsonTag.SetString(aTag.c_str(), allocator);
+            jsonTags.PushBack(jsonTag, allocator);
+        }
+        jsonStudent.AddMember("tags", jsonTags, allocator);
+        
+        //encode applications_department
+        rapidjson::Value jsonApplications(rapidjson::kArrayType);
+        for (auto aApplication : student.Applications())
+        {
+            rapidjson::Value jsonApplication(rapidjson::kStringType);
+            jsonApplication.SetString(aApplication.c_str(), allocator);
+            jsonApplications.PushBack(jsonApplication, allocator);
+        }
+        jsonStudent.AddMember("applications_department", jsonApplications, allocator);
+
+        //complete
+        jsonStudents.PushBack(jsonStudent, allocator);
+    }
+
+    //return
+    return jsonStudents;
+}
+
+rapidjson::Value JsonIO::EncodeDepartments(std::vector<Department> departments) throw()
+{
+    //config
+    rapidjson::Value resultJson(rapidjson::kArrayType);
+    rapidjson::Document::AllocatorType & allocator = m_doc.GetAllocator();
+
+    //encode
+    rapidjson::Value jsonDepartments(rapidjson::kObjectType);
+    for (auto department : departments)
+    {
+        rapidjson::Value jsonDepartment(rapidjson::kObjectType);
+
+        //encode department_no
+        rapidjson::Value jsonId(rapidjson::kStringType);
+        jsonId.SetString(department.Id().c_str(), allocator);
+        jsonDepartment.AddMember("department_no", jsonId, allocator);
+
+        //encode member_limit
+        rapidjson::Value jsonMemberLimit(rapidjson::kNumberType);
+        jsonMemberLimit.SetInt(department.MemberLimit());
+        jsonDepartment.AddMember("member_limit", jsonMemberLimit, allocator);
+
+        //encode tags
+        rapidjson::Value jsonTags(rapidjson::kArrayType);
+        for (auto aTag : department.Tags())
+        {
+            rapidjson::Value jsonTag(rapidjson::kStringType);
+            jsonTag.SetString(aTag.c_str(), allocator);
+            jsonTags.PushBack(jsonTag, allocator);
+        }
+        jsonDepartment.AddMember("tags", jsonTags, allocator);
+
+        //encode event_schedules
+        rapidjson::Value jsonSchedules(rapidjson::kArrayType);
+        for (auto aSchedule : department.Schedules())
+        {
+            rapidjson::Value jsonSchedule(rapidjson::kStringType);
+            jsonSchedule.SetString(aSchedule.ToString().c_str(), allocator);
+            jsonSchedules.PushBack(jsonSchedule, allocator);
+        }
+        jsonDepartment.AddMember("event_schedules", jsonSchedules, allocator);
+        
+        //complete
+        jsonDepartments.PushBack(jsonDepartment, allocator);
+    }
+
+    //return
+    return jsonDepartments;
 
 }

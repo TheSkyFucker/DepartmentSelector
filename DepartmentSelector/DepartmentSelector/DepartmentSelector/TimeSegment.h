@@ -120,6 +120,16 @@ public:
     //************************************
     std::vector<TimeSegment> Cut(TimeSegment aSegment) throw();
 
+
+    //************************************
+    // Method:    ToString
+    // FullName:  TimeSegment::ToString
+    // Access:    public 
+    // Returns:   std::string
+    // Qualifier: throw()
+    //************************************
+    std::string ToString() throw();
+
     ~TimeSegment();
 
 
